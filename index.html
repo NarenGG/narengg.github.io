@@ -100,7 +100,8 @@
 <style>
 #calendar {
   display: grid;
-  grid-template-columns: repeat(7, 16px);
+  grid-template-columns: repeat(53, 16px); /* 53 weeks in a year */
+  grid-template-rows: repeat(7, 16px);     /* 7 days in a week */
   grid-gap: 4px;
   width: max-content;
   margin: 20px auto;
@@ -146,17 +147,35 @@ function renderCalendar(contributions) {
   calendar.innerHTML = '';
   const days = 365;
   const now = new Date();
-  for (let i = days - 1; i >= 0; i--) {
-    const date = new Date(now);
-    date.setDate(now.getDate() - i);
-    const yyyy_mm_dd = date.toISOString().slice(0, 10);
-    const count = contributions[yyyy_mm_dd] || 0;
-    const level = getLevel(count);
-    const day = document.createElement('div');
-    day.className = `day level-${level}`;
-    day.title = `${yyyy_mm_dd}: ${count} contributions`;
-    calendar.appendChild(day);
+
+  // Find the date of the most recent Sunday
+  let lastSunday = new Date(now);
+  lastSunday.setDate(now.getDate() - now.getDay());
+
+  // Fill the grid: columns = weeks, rows = days (Sunday to Saturday)
+  for (let week = 0; week < 53; week++) {
+    for (let day = 0; day < 7; day++) {
+      // Calculate the date for this cell
+      let cellDate = new Date(lastSunday);
+      cellDate.setDate(lastSunday.getDate() - (52 - week) * 7 + day);
+
+      if (cellDate > now || (now - cellDate) / (1000 * 60 * 60 * 24) >= 365) {
+        // If cellDate is in the future or more than 1 year ago, leave blank
+        const empty = document.createElement('div');
+        empty.className = 'day';
+        calendar.appendChild(empty);
+      } else {
+        const yyyy_mm_dd = cellDate.toISOString().slice(0, 10);
+        const count = contributions[yyyy_mm_dd] || 0;
+        const level = getLevel(count);
+        const dayDiv = document.createElement('div');
+        dayDiv.className = `day level-${level}`;
+        dayDiv.title = `${yyyy_mm_dd}: ${count} contributions`;
+        calendar.appendChild(dayDiv);
+      }
+    }
   }
+}
 }
 
 fetchContributions();
