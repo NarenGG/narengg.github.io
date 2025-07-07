@@ -96,17 +96,70 @@
     <p>
       Undergraduate Physics Researcher | UNT Debater
     </p>
-<!-- GitHub Calendar CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-calendar@latest/dist/github-calendar-responsive.css"/>
-<!-- GitHub Calendar Container -->
-<div class="calendar">
-    Loading your GitHub contributions...
-</div>
-<!-- GitHub Calendar JS -->
-<script src="https://cdn.jsdelivr.net/npm/github-calendar@latest/dist/github-calendar.min.js"></script>
+<div id="calendar"></div>
+<style>
+#calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 16px);
+  grid-gap: 4px;
+  width: max-content;
+  margin: 20px auto;
+}
+.day {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: #e0e0e0;
+  transition: background 0.2s;
+}
+.day.level-1 { background: #c6e48b; }
+.day.level-2 { background: #7bc96f; }
+.day.level-3 { background: #239a3b; }
+.day.level-4 { background: #196127; }
+</style>
 <script>
-    // Replace 'NarenGG' with your GitHub username if needed
-    GitHubCalendar(".calendar", "NarenGG", { responsive: true });
+async function fetchContributions() {
+  // Fetch up to 100 recent commits (GitHub API unauthenticated limit)
+  const res = await fetch('https://api.github.com/repos/NarenGG/narengg.github.io/commits?per_page=100');
+  const data = await res.json();
+  
+  // Aggregate commits by date
+  const contributions = {};
+  data.forEach(commit => {
+    const date = commit.commit.author.date.substr(0, 10);
+    contributions[date] = (contributions[date] || 0) + 1;
+  });
+  
+  renderCalendar(contributions);
+}
+
+function getLevel(count) {
+  if (count >= 10) return 4;
+  if (count >= 5) return 3;
+  if (count >= 2) return 2;
+  if (count >= 1) return 1;
+  return 0;
+}
+
+function renderCalendar(contributions) {
+  const calendar = document.getElementById('calendar');
+  calendar.innerHTML = '';
+  const days = 365;
+  const now = new Date();
+  for (let i = days - 1; i >= 0; i--) {
+    const date = new Date(now);
+    date.setDate(now.getDate() - i);
+    const yyyy_mm_dd = date.toISOString().slice(0, 10);
+    const count = contributions[yyyy_mm_dd] || 0;
+    const level = getLevel(count);
+    const day = document.createElement('div');
+    day.className = `day level-${level}`;
+    day.title = `${yyyy_mm_dd}: ${count} contributions`;
+    calendar.appendChild(day);
+  }
+}
+
+fetchContributions();
 </script>
     <h2>About</h2>
     <p>
