@@ -42,6 +42,52 @@
       border: 1px solid #ccc;
       border-radius: 8px;
     }
+/* Style the container */
+.calendar {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+  padding: 24px 12px 8px 12px;
+  margin-bottom: 2rem;
+}
+
+/* Style the month/year label */
+.calendar .calendar-graph text {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 12px;
+  fill: #666;
+}
+
+/* Make the squares a bit larger and rounded */
+.calendar .contrib-day {
+  rx: 5px;
+  ry: 5px;
+  shape-rendering: geometricPrecision;
+  stroke: #e0e0e0;
+  stroke-width: 0.5;
+}
+
+/* Contribution levels: tweak colors for more contrast */
+.calendar .contrib-day[data-level="0"] { fill: #ebedf0; }
+.calendar .contrib-day[data-level="1"] { fill: #c6e48b; }
+.calendar .contrib-day[data-level="2"] { fill: #7bc96f; }
+.calendar .contrib-day[data-level="3"] { fill: #239a3b; }
+.calendar .contrib-day[data-level="4"] { fill: #196127; }
+
+/* On hover, pop out the square */
+.calendar .contrib-day:hover {
+  filter: brightness(1.2) drop-shadow(0 0 2px #3333);
+  stroke: #333;
+  stroke-width: 1.2;
+  z-index: 2;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .calendar {
+    padding: 12px 2px 2px 2px;
+  }
+}
   </style>
 </head>
 <body>
