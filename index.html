@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,12 +60,19 @@
     }
 
     .github-graph {
+      padding-top: 1rem;
       text-align: center;
+    }
+
+    .github-graph img {
+      border-radius: 0.75rem;
+      margin: 1rem 0 0;
+      box-shadow: none;
+      max-width: 100%;
     }
 
     .github-badge {
       margin-top: 2rem;
-      text-align: center;
     }
 
     @media (max-width: 600px) {
@@ -81,12 +89,7 @@
 
     <h2>GitHub Contributions</h2>
     <div class="github-graph">
-      <img
-        src="https://ghchart.rshah.org/4285f4/NarenGG"
-        alt="NarenGG's GitHub chart in blue"
-        class="img-fluid"
-        style="border-radius: 1rem; margin-top: 1.5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.1); max-width: 100%; height: auto;"
-      />
+      <img src="https://ghchart.rshah.org/4285f4/NarenGG" alt="NarenGG's GitHub chart in blue" />
     </div>
 
     <h2>About</h2>
@@ -115,7 +118,7 @@
       <li><a href="mailto:naren@example.com">Email</a></li>
     </ul>
 
-    <div class="github-badge">
+    <div class="github-badge text-center">
       <iframe src="https://ghbtns.com/github-btn.html?user=NarenGG&type=follow&count=true"
               frameborder="0" scrolling="0" width="170" height="20" title="GitHub Follow Button"></iframe>
     </div>
