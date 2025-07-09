@@ -9,17 +9,6 @@
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #f0f2f5;<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Naren Ganesh</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
       background-color: #f0f2f5;
       color: #1c1e21;
       margin: 0;
@@ -49,7 +38,7 @@
     }
 
     a {
-      color: #007bff;
+      color: #e91e63;
       text-decoration: none;
     }
 
@@ -70,8 +59,14 @@
     }
 
     .github-graph {
-      text-align: center;
-      margin: 2rem 0;
+      padding-top: 1rem;
+    }
+
+    .github-graph img {
+      border-radius: 0.75rem;
+      margin: 1rem 0 0;
+      box-shadow: none;
+      max-width: 100%;
     }
 
     .github-badge {
@@ -90,9 +85,9 @@
     <h1>Naren Ganesh</h1>
     <p class="lead mb-4">Undergraduate Physics Researcher • UNT Debater</p>
 
+    <h2>GitHub Contributions</h2>
     <div class="github-graph">
-      <h2>GitHub Contributions</h2>
-      <img src="https://ghchart.rshah.org/NarenGG" alt="NarenGG's GitHub chart" />
+      <img src="https://ghchart.rshah.org/e91e63/NarenGG" alt="NarenGG's GitHub chart in pink" />
     </div>
 
     <h2>About</h2>
@@ -126,178 +121,5 @@
               frameborder="0" scrolling="0" width="170" height="20" title="GitHub Follow Button"></iframe>
     </div>
   </div>
-</body>
-</html>
-
-      color: #1c1e21;
-      margin: 0;
-      padding: 0;
-    }
-
-    .main-card {
-      background: #fff;
-      border-radius: 1.25rem;
-      padding: 2.5rem;
-      margin: 2rem auto;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
-      max-width: 860px;
-    }
-
-    h1 {
-      font-size: 2.75rem;
-      font-weight: 600;
-    }
-
-    h2 {
-      font-size: 1.5rem;
-      margin-top: 2rem;
-      font-weight: 600;
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 0.25rem;
-    }
-
-    a {
-      color: #007bff;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    img {
-      border-radius: 1rem;
-      margin-top: 1.5rem;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    }
-
-    ul {
-      padding-left: 1.25rem;
-    }
-
-    .calendar {
-      display: grid;
-      grid-template-columns: repeat(53, 14px);
-      grid-template-rows: repeat(7, 14px);
-      gap: 3px;
-      margin: 2rem auto;
-      width: max-content;
-    }
-
-    .day {
-      width: 14px;
-      height: 14px;
-      border-radius: 4px;
-      background: #e5e7eb;
-      transition: background 0.2s ease;
-    }
-
-    .level-1 { background: #a0e99b; }
-    .level-2 { background: #5bc174; }
-    .level-3 { background: #2f9747; }
-    .level-4 { background: #15662f; }
-
-    .github-badge {
-      margin-top: 2rem;
-    }
-
-    @media (max-width: 600px) {
-      .main-card {
-        padding: 1.5rem;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="main-card">
-    <h1>Naren Ganesh</h1>
-    <p class="lead mb-4">Undergraduate Physics Researcher • UNT Debater</p>
-
-    <div id="calendar" class="calendar"></div>
-
-    <h2>About</h2>
-    <p>
-      I’m currently a high school senior at the Texas Academy of Mathematics and Science, with interests bridging computational photonics, law & society, and theory. My research spans non-equilibrium heat transfer methods for hearing preservation. I'm also a nationally-ranked LD debater focused on critical legal and literary theory.
-    </p>
-
-    <h2>Projects & Research</h2>
-    <ul>
-      <li>1D Finite-Difference Time-Domain (FDTD) simulation of thermal currents</li>
-      <li>2D/3D COMSOL simulations of emissivity via Green's function approach</li>
-      <li>Community outreach & research through TAMS RO</li>
-    </ul>
-    <img src="fdtd-diagram.png" alt="1D FDTD Simulation Diagram" class="img-fluid" />
-
-    <h2>Debate</h2>
-    <p>
-      Lincoln-Douglas debater focused on international relations, structural injustice, and continental philosophy.
-      Quaterfinalist and 3rd speaker at WKU Spring Showcase and NFA-LD Nationals qualification, with a focus on kritikal debate.
-    </p>
-    <img src="debate.png" alt="NFA Nationals at Wayne State!" class="img-fluid" />
-
-    <h2>Connect</h2>
-    <ul>
-      <li><a href="https://github.com/NarenGG" target="_blank">GitHub: NarenGG</a></li>
-      <li><a href="mailto:naren@example.com">Email</a></li>
-    </ul>
-
-    <div class="github-badge">
-      <iframe src="https://ghbtns.com/github-btn.html?user=NarenGG&type=follow&count=true"
-              frameborder="0" scrolling="0" width="170" height="20" title="GitHub"></iframe>
-    </div>
-  </div>
-
-  <script>
-    async function fetchContributions() {
-      const res = await fetch('https://api.github.com/repos/NarenGG/narengg.github.io/commits?per_page=100');
-      const data = await res.json();
-      const contributions = {};
-
-      data.forEach(commit => {
-        const date = commit.commit.author.date.substr(0, 10);
-        contributions[date] = (contributions[date] || 0) + 1;
-      });
-
-      renderCalendar(contributions);
-    }
-
-    function getLevel(count) {
-      if (count >= 10) return 4;
-      if (count >= 5) return 3;
-      if (count >= 2) return 2;
-      if (count >= 1) return 1;
-      return 0;
-    }
-
-    function renderCalendar(contributions) {
-      const calendar = document.getElementById('calendar');
-      calendar.innerHTML = '';
-      const now = new Date();
-      let lastSunday = new Date(now);
-      lastSunday.setDate(now.getDate() - now.getDay());
-
-      for (let week = 0; week < 53; week++) {
-        for (let day = 0; day < 7; day++) {
-          let cellDate = new Date(lastSunday);
-          cellDate.setDate(lastSunday.getDate() - (52 - week) * 7 + day);
-          if (cellDate > now || (now - cellDate) / (1000 * 60 * 60 * 24) >= 365) {
-            const empty = document.createElement('div');
-            empty.className = 'day';
-            calendar.appendChild(empty);
-          } else {
-            const dateStr = cellDate.toISOString().slice(0, 10);
-            const count = contributions[dateStr] || 0;
-            const level = getLevel(count);
-            const div = document.createElement('div');
-            div.className = `day level-${level}`;
-            div.title = `${dateStr}: ${count} contributions`;
-            calendar.appendChild(div);
-          }
-        }
-      }
-    }
-
-    fetchContributions();
-  </script>
 </body>
 </html>
