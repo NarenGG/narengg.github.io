@@ -1,12 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Naren Ganesh</title>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -71,6 +72,39 @@
       max-width: 100%;
     }
 
+    /* Timeline styling */
+    .timeline {
+      border-left: 2px solid #ddd;
+      margin-left: 0.5rem;
+      padding-left: 1.5rem;
+    }
+
+    .timeline-item {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -1.65rem;
+      top: 5px;
+      width: 10px;
+      height: 10px;
+      background-color: #4285f4;
+      border-radius: 50%;
+    }
+
+    .timeline-item h5 {
+      margin-bottom: 0.25rem;
+      font-weight: 600;
+    }
+
+    .timeline-item span {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
     .github-badge {
       margin-top: 2rem;
     }
@@ -82,46 +116,128 @@
     }
   </style>
 </head>
+
 <body>
   <div class="main-card">
+
     <h1>Naren Ganesh</h1>
-    <p class="lead mb-4">Undergraduate Physics Researcher • UNT Debater</p>
+    <p class="lead mb-4">Electrical Engineering @ Columbia • Researcher • Debater</p>
 
     <h2>GitHub Contributions</h2>
     <div class="github-graph">
-      <img src="https://ghchart.rshah.org/4285f4/NarenGG" alt="NarenGG's GitHub chart in blue" />
+      <img src="https://ghchart.rshah.org/4285f4/NarenGG" />
     </div>
 
     <h2>About</h2>
     <p>
-      I’m currently a high school senior at the Texas Academy of Mathematics and Science, with interests bridging computational electromagnetics, silicon photonics, and law & society. My research spans non-equilibrium heat transfer methods for hearing preservation. I'm also a nationally-ranked LD debater focused on critical legal and literary theory.
+      I’m a student at Columbia University studying electrical engineering, with interests in computational electromagnetics, silicon photonics, and law & society. My work focuses on non-equilibrium thermal radiation and photonic time crystals, with applications in hearing preservation technologies. I also compete in national-level Lincoln-Douglas debate.
     </p>
+
+    <h2>Education</h2>
+    <ul>
+      <li>
+        <strong>Columbia University</strong> — B.S. Electrical Engineering<br>
+        <em>Minor: Operations Research, Hispanic Studies | Class of 2030</em><br>
+        Honors: C. Prescott Davis Scholar
+      </li>
+      <br>
+      <li>
+        <strong>Texas Academy of Mathematics and Science</strong><br>
+        Electrical Engineering (4.0/4.0 UW) | Class of 2026<br>
+        Coursework: PDEs, Complex Analysis, ODEs
+      </li>
+    </ul>
 
     <h2>Projects & Research</h2>
     <ul>
-      <li>1D Finite-Difference Time-Domain (FDTD) simulation of thermal currents</li>
-      <li>2D/3D COMSOL simulations of emissivity via Green's function approach</li>
-      <li>Community outreach & research through TAMS Research Organization (RO)</li>
+      <li>FDTD simulations for non-equilibrium thermal currents</li>
+      <li>COMSOL modeling of emissivity via Green’s functions</li>
+      <li>Photonic time-crystal modeling for thermal radiation amplification</li>
     </ul>
-    <img src="fdtd-diagram.png" alt="1D FDTD Simulation Diagram" class="img-fluid" />
+    <img src="fdtd-diagram.png" />
+
+    <h2>Experience</h2>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <h5>Undergraduate Research Fellow — UNT Physics (Xiao Group)</h5>
+        <span>Aug 2024 – Present</span>
+        <p>
+          Modeling thermal radiation in photonic time crystals. Built FDTD frameworks in MATLAB and executed large-scale COMSOL simulations.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <h5>President — TAMS Research Organization</h5>
+        <span>Apr 2025 – Present</span>
+        <p>
+          Led campus research initiatives, organized mentorship programs, and coordinated funding and logistics for competitions.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <h5>Policy Debater — University of North Texas</h5>
+        <span>Aug 2024 – Present</span>
+        <p>
+          Competed in collegiate LD and CX debate; ranked top 100 nationally in Lincoln-Douglas.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <h5>Summer Researcher — UNT Mechanical Engineering (Zhang Group)</h5>
+        <span>May 2024 – Aug 2024</span>
+        <p>
+          Developed optical algorithms for metamaterial prediction and modeled refractive indices using Lorentz-Drude models.
+        </p>
+      </div>
+
+    </div>
+
+    <h2>Publications & Conferences</h2>
+    <ul>
+      <li>
+        <strong>Conference on Lasers and Electro-Optics (CLEO), 2026</strong><br>
+        “Energy Amplification and Coherence Enhancement of Blackbody Radiation in 1D Photonic Time-Crystals”
+      </li>
+      <br>
+      <li>
+        <strong>Universidad del Cauca (Invited Talk), 2025</strong><br>
+        “El desarrollo de simulaciones electromagnéticas para avanzar en fototerapias cocleares”
+      </li>
+    </ul>
 
     <h2>Debate</h2>
     <p>
-      Lincoln-Douglas debater focused on international relations, structural injustice, and continental philosophy.
-      Quaterfinalist and 3rd speaker at WKU Spring Showcase and NFA-LD Nationals qualification, with a focus on kritikal debate.
+      Lincoln-Douglas debater focused on international relations, structural injustice, and continental philosophy. Quarterfinalist and 3rd speaker at WKU and qualified to NFA-LD Nationals.
     </p>
-    <img src="debate.png" alt="NFA Nationals at Wayne State!" class="img-fluid" />
+    <img src="debate.png" />
+
+    <h2>Awards & Honors</h2>
+    <ul>
+      <li>
+        <strong>Scholarships:</strong> SPIE Optics & Photonics, Weiner Scholarship, Summer Research Funding, URF Awards
+      </li>
+      <br>
+      <li>
+        <strong>Research:</strong> 2nd Place UTA Photonics Workshop, TJAS Honorable Mention, FWRSEF 3rd Place
+      </li>
+      <br>
+      <li>
+        <strong>Debate:</strong> 2nd Place Northwestern, WKU Quarterfinalist + 3rd Speaker, NFA-LD Nationals Qualification
+      </li>
+    </ul>
 
     <h2>Connect</h2>
     <ul>
-      <li><a href="https://github.com/NarenGG" target="_blank">GitHub: NarenGG</a></li>
-      <li><a href="mailto:naren@example.com">Email</a></li>
+      <li><a href="https://github.com/NarenGG" target="_blank">GitHub</a></li>
+      <li><a href="mailto:nareng2026@gmail.com">Email</a></li>
     </ul>
 
     <div class="github-badge text-center">
       <iframe src="https://ghbtns.com/github-btn.html?user=NarenGG&type=follow&count=true"
-              frameborder="0" scrolling="0" width="170" height="20" title="GitHub Follow Button"></iframe>
+              frameborder="0" scrolling="0" width="170" height="20"></iframe>
     </div>
+
   </div>
 </body>
 </html>
