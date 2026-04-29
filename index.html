@@ -9,172 +9,123 @@
 
 <style>
 body {
-  margin: 0;
   font-family: 'Inter', sans-serif;
   background: #f0f2f5;
+  margin: 0;
 }
 
-/* ===== PIXEL INTRO ===== */
+/* INTRO */
 #intro {
   position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
+  background: url("columbia-campus.jpg") center/cover no-repeat;
   z-index: 9999;
-  overflow: hidden;
-  background: black;
+  animation: introAnim 2.5s forwards;
 }
 
-#intro img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  image-rendering: pixelated;
-  transform-origin: center;
+@keyframes introAnim {
+  0% { filter: blur(0px); opacity: 1; }
+  60% { filter: blur(20px); }
+  100% { filter: blur(50px); opacity: 0; visibility: hidden; }
 }
 
-/* ===== MAIN CARD ===== */
+/* MAIN */
 .main-card {
   background: white;
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 2.5rem;
-  border-radius: 1.25rem;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+  border-radius: 20px;
+  padding: 40px;
+  margin: 40px auto;
+  max-width: 950px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
 
-/* ===== HEADER ===== */
+/* HEADER */
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+}
+
+.header-left {
+  max-width: 65%;
 }
 
 .header-right img {
-  width: 70px;
+  width: 160px;
 }
 
-/* ===== TEXT ===== */
-h1 { font-size: 2.75rem; margin: 0; }
+/* TEXT */
+h1 { font-size: 2.8rem; margin-bottom: 10px; }
+h2 { margin-top: 35px; border-bottom: 2px solid #ddd; padding-bottom: 5px; }
 
-h2 {
-  margin-top: 2rem;
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 0.25rem;
-}
-
-/* ===== SCHOOL ===== */
-.school-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  position: relative;
-  margin-bottom: 1rem;
-  cursor: pointer;
-}
-
-.school-logo {
-  width: 28px;
-}
-
-.tooltip {
-  position: absolute;
-  top: 120%;
-  left: 0;
-  background: white;
-  padding: 10px;
-  width: 260px;
-  border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+/* ANIMATIONS */
+.fade {
   opacity: 0;
-  transform: translateY(10px);
-  transition: 0.25s;
+  transform: translateY(20px);
+  transition: 0.8s ease;
 }
 
-.school-row:hover .tooltip {
+.fade.show {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ===== POSTER ===== */
-.poster-img {
-  max-width: 700px;
-  width: 100%;
-  display: block;
-  margin: 2rem auto;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-/* ===== MODAL ===== */
-#modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.9);
-  display: none;
-  justify-content: center;
+/* EDUCATION */
+.school {
+  display: flex;
   align-items: center;
-  z-index: 9998;
-}
-
-#modal img {
-  max-width: 90%;
-  max-height: 90%;
-}
-
-/* ===== DEBATE ===== */
-.debate-img {
-  max-width: 550px;
-  display: block;
-  margin: 1.5rem auto;
-  border-radius: 10px;
-}
-
-/* ===== TIMELINE ===== */
-.timeline {
-  border-left: 2px solid #ddd;
-  padding-left: 1.5rem;
-}
-
-.timeline-item {
-  margin-bottom: 1.5rem;
+  gap: 12px;
   position: relative;
+  margin-bottom: 15px;
 }
 
-.timeline-item::before {
-  content: "";
+.school img {
+  width: 40px;
+}
+
+.tooltip {
   position: absolute;
-  left: -1.6rem;
-  top: 5px;
-  width: 10px;
-  height: 10px;
-  background: #4285f4;
-  border-radius: 50%;
+  bottom: -70px;
+  left: 0;
+  background: #222;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  width: 260px;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.school:hover .tooltip {
+  opacity: 1;
+}
+
+/* POSTER */
+.poster img {
+  width: 70%;
+  border-radius: 12px;
+  display: block;
+  margin: 20px auto;
+}
+
+/* LIST */
+ul {
+  padding-left: 20px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- ===== INTRO ===== -->
-<div id="intro">
-  <img id="intro-img" src="columbia-campus.jpg">
-</div>
-
-<!-- ===== MODAL ===== -->
-<div id="modal" onclick="closeModal()">
-  <img id="modal-img">
-</div>
+<div id="intro"></div>
 
 <div class="main-card">
 
 <!-- HEADER -->
-<div class="header">
-  <div>
+<div class="header fade">
+  <div class="header-left">
     <h1>Naren Ganesh</h1>
     <p>Electrical Engineering @ Columbia • Researcher • Debater</p>
   </div>
@@ -183,90 +134,101 @@ h2 {
   </div>
 </div>
 
-<h2>About</h2>
-<p>
-Computational electromagnetics, photonic time crystals, and non-equilibrium thermal radiation.
+<!-- ABOUT -->
+<h2 class="fade">About</h2>
+<p class="fade">
+I work on computational electromagnetics, photonic time crystals, and non-equilibrium thermal radiation.
+My research focuses on coherence amplification, energy transport, and nanoscale photonic systems.
 </p>
 
-<h2>Education</h2>
+<!-- EDUCATION -->
+<h2 class="fade">Education</h2>
 
-<div class="school-row">
-  <img src="columbia_logo.png" class="school-logo">
+<div class="school fade">
+  <img src="columbia_logo.png">
   <strong>Columbia University — Electrical Engineering</strong>
   <div class="tooltip">
-    Incoming undergraduate student<br>
-    Focus: photonics, electromagnetics
+    C. Prescott Davis Scholar (top ~1%)<br>
+    B.S. Electrical Engineering<br>
+    Minors: Operations Research, Hispanic Studies
   </div>
 </div>
 
-<div class="school-row">
-  <img src="tams_logo.png" class="school-logo">
-  <strong>TAMS — UNT</strong>
+<div class="school fade">
+  <img src="tams_logo.png">
+  <strong>Texas Academy of Math and Science</strong>
   <div class="tooltip">
-    Early college program<br>
-    President, Research Organization
+    GPA: 4.0<br>
+    Coursework: PDEs, ODEs, Complex Analysis
   </div>
 </div>
 
-<h2>Projects & Research</h2>
-<ul>
-<li>FDTD simulations</li>
-<li>COMSOL modeling</li>
-<li>Photonic time crystals</li>
+<!-- EXPERIENCE -->
+<h2 class="fade">Experience</h2>
+
+<ul class="fade">
+<li><strong>President — TAMS Research Organization</strong> (Apr 2025–Present)<br>
+Led financial, logistical, and program operations. Organized 30+ mentorship sessions connecting ~75 students with research faculty.</li>
+
+<li><strong>Undergraduate Research Fellow — UNT Physics</strong> (Aug 2024–Present)<br>
+Developing FDTD simulation libraries, modeling thermal radiation, running 200GB+ COMSOL simulations.</li>
+
+<li><strong>Policy Debater — UNT</strong> (Aug 2024–Present)<br>
+Top 88 nationally in Lincoln-Douglas debate.</li>
+
+<li><strong>Early Researcher — UNT Mechanical Engineering</strong> (May–Aug 2024)<br>
+Built optical metamaterial algorithm (>99% accuracy).</li>
 </ul>
 
-<h2>Research Poster</h2>
-<img src="uta-poster-preview.png" class="poster-img" onclick="openModal(this)">
+<!-- PROJECTS -->
+<h2 class="fade">Projects & Research</h2>
 
-<h2>Experience</h2>
-<div class="timeline">
-<div class="timeline-item">Research Fellow — UNT Physics</div>
-<div class="timeline-item">President — TAMS Research Organization</div>
+<ul class="fade">
+<li>FDTD simulations of thermal currents</li>
+<li>COMSOL emissivity modeling using Green's functions</li>
+<li>Photonic time crystal modeling</li>
+</ul>
+
+<!-- POSTER -->
+<h2 class="fade">Research Poster</h2>
+<div class="poster fade">
+  <img src="uta-poster-preview.png">
 </div>
 
-<h2>Debate</h2>
-<p>Nationally-ranked LD debater</p>
-<img src="debate.png" class="debate-img">
+<!-- CONFERENCES -->
+<h2 class="fade">Conferences & Talks</h2>
 
-<h2>Awards</h2>
-<ul>
-<li>NFA Nationals Qualifier</li>
-<li>WKU Quarterfinalist</li>
+<ul class="fade">
+<li>CLEO 2026 — Photonic Time Crystals (Oral)</li>
+<li>Universidad del Cauca — Keynote speaker</li>
+</ul>
+
+<!-- AWARDS -->
+<h2 class="fade">Awards & Achievements</h2>
+
+<ul class="fade">
+<li>Goldwater Scholarship Nomination</li>
+<li>$3,500 SPIE Optics Scholarship</li>
+<li>$1,250 Weiner Scholarship</li>
+<li>$8,000 Summer Research Funding</li>
+<li>UTA Photonics — 2nd Place</li>
+<li>TJAS, FWRSEF, TJSHS Awards</li>
+<li>Debate: Northwestern 2nd Place, NFA Nationals Qualifier</li>
 </ul>
 
 </div>
 
 <script>
-/* ===== PIXEL EFFECT ===== */
-const img = document.getElementById("intro-img");
-const intro = document.getElementById("intro");
+const faders = document.querySelectorAll('.fade');
 
-let scale = 0.05;
-
-const interval = setInterval(() => {
-  scale += 0.05;
-  img.style.transform = `scale(${scale})`;
-
-  if (scale >= 1) {
-    clearInterval(interval);
-    intro.style.transition = "opacity 1s";
-    intro.style.opacity = "0";
-
-    setTimeout(() => {
-      intro.style.display = "none";
-    }, 1000);
-  }
-}, 60);
-
-/* ===== MODAL ===== */
-function openModal(img) {
-  document.getElementById("modal").style.display = "flex";
-  document.getElementById("modal-img").src = img.src;
-}
-
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
-}
+window.addEventListener('scroll', () => {
+  faders.forEach(el => {
+    const top = el.getBoundingClientRect().top;
+    if (top < window.innerHeight - 50) {
+      el.classList.add('show');
+    }
+  });
+});
 </script>
 
 </body>
