@@ -12,6 +12,36 @@
 body {
   font-family: 'Inter', sans-serif;
   background: #f0f2f5;
+  margin: 0;
+}
+
+/* PIXEL INTRO */
+#intro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+#intro img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+  transition: filter 1.5s ease;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  pointer-events: none;
 }
 
 /* MAIN CARD */
@@ -31,16 +61,13 @@ body {
   align-items: center;
 }
 
-.header-left h1 {
-  font-size: 2.75rem;
-  font-weight: 600;
-}
-
 .header-right img {
   width: 70px;
 }
 
 /* HEADINGS */
+h1 { font-size: 2.75rem; font-weight: 600; }
+
 h2 {
   margin-top: 2rem;
   border-bottom: 2px solid #ddd;
@@ -77,7 +104,6 @@ h2 {
   transform: translateY(10px);
   transition: 0.25s;
   pointer-events: none;
-  z-index: 10;
 }
 
 .school-row:hover .tooltip-box {
@@ -128,31 +154,33 @@ h2 {
 
 <body>
 
+<!-- PIXEL INTRO -->
+<div id="intro">
+  <img id="intro-img" src="columbia-campus.jpg">
+</div>
+
 <div class="main-card">
 
 <!-- HEADER -->
 <div class="header">
-  <div class="header-left">
+  <div>
     <h1>Naren Ganesh</h1>
     <p class="lead">
       Electrical Engineering @ Columbia • Researcher • Debater
     </p>
   </div>
 
-  <!-- Columbia Engineering logo moved here -->
   <div class="header-right">
     <img src="columbia-engineering-logo.png">
   </div>
 </div>
 
-<!-- ABOUT -->
 <h2>About</h2>
 <p>
 I work on computational electromagnetics, photonic time crystals, and non-equilibrium thermal radiation.
 My research focuses on coherence amplification, energy transport, and nanoscale photonic systems.
 </p>
 
-<!-- EDUCATION -->
 <h2>Education</h2>
 
 <div class="school-row">
@@ -172,19 +200,17 @@ My research focuses on coherence amplification, energy transport, and nanoscale 
   <div class="tooltip-box">
     Early college program at UNT<br>
     President, Research Organization<br>
-    Advanced STEM + research training
+    Advanced STEM + research pipeline
   </div>
 </div>
 
-<!-- PROJECTS -->
 <h2>Projects & Research</h2>
 <ul>
-<li>Finite-Difference Time-Domain (FDTD) simulations of thermal currents</li>
-<li>COMSOL modeling of emissivity using Green’s functions</li>
-<li>Photonic time crystal energy amplification research</li>
+<li>Finite-Difference Time-Domain (FDTD) simulations</li>
+<li>COMSOL modeling using Green’s functions</li>
+<li>Photonic time crystal energy amplification</li>
 </ul>
 
-<!-- POSTER -->
 <h2>Research Poster</h2>
 <p class="text-center text-muted">Click to view full poster</p>
 
@@ -192,7 +218,6 @@ My research focuses on coherence amplification, energy transport, and nanoscale 
   <img src="uta-poster-preview.png" class="poster-img">
 </a>
 
-<!-- EXPERIENCE -->
 <h2>Experience</h2>
 
 <div class="timeline">
@@ -207,31 +232,46 @@ Apr 2025 – Present
 </div>
 </div>
 
-<!-- DEBATE -->
 <h2>Debate</h2>
 <p>
-Nationally-ranked Lincoln-Douglas debater focused on critical legal theory, international relations, and philosophy.
-Quarterfinalist at WKU Spring Showcase and NFA-LD Nationals qualifier.
+Nationally-ranked Lincoln-Douglas debater focused on critical legal theory and philosophy.
 </p>
 
 <img src="debate.png" class="debate-img">
 
-<!-- AWARDS -->
 <h2>Awards</h2>
 <ul>
 <li>NFA-LD Nationals Qualification</li>
-<li>WKU Spring Showcase — Quarterfinalist, 3rd Speaker</li>
+<li>WKU Spring Showcase — Quarterfinalist</li>
 <li>TAMS Research Leadership Recognition</li>
 </ul>
 
-<!-- CONNECT -->
-<h2>Connect</h2>
-<ul>
-<li><a href="https://github.com/NarenGG">GitHub</a></li>
-<li><a href="mailto:naren@example.com">Email</a></li>
-</ul>
-
 </div>
+
+<script>
+/* PIXEL TRANSITION FIX */
+const img = document.getElementById("intro-img");
+const intro = document.getElementById("intro");
+
+let pixel = 40;
+
+const interval = setInterval(() => {
+  pixel -= 2;
+  img.style.filter = `blur(${pixel}px)`;
+
+  if (pixel <= 0) {
+    clearInterval(interval);
+
+    setTimeout(() => {
+      intro.classList.add("fade-out");
+    }, 500);
+
+    setTimeout(() => {
+      intro.style.display = "none";
+    }, 1800);
+  }
+}, 50);
+</script>
 
 </body>
 </html>
