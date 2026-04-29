@@ -25,59 +25,67 @@ body {
 }
 
 /* HEADER */
-.header-row {
+.header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 12px;
 }
 
-.header-logo {
-  width: 45px;
+.header-left h1 {
+  font-size: 2.75rem;
+  font-weight: 600;
+}
+
+.header-right img {
+  width: 70px;
 }
 
 /* HEADINGS */
-h1 { font-size: 2.75rem; font-weight: 600; }
-
 h2 {
   margin-top: 2rem;
-  font-size: 1.5rem;
   border-bottom: 2px solid #ddd;
   padding-bottom: 0.25rem;
 }
 
-/* HOVER SCHOOL CARDS */
-.school {
+/* SCHOOL ROW */
+.school-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
   position: relative;
+  width: fit-content;
   cursor: pointer;
-  font-weight: 600;
-  color: #333;
 }
 
-.school:hover {
-  color: #4285f4;
+.school-logo {
+  width: 28px;
 }
 
-.school-info {
+/* TOOLTIP */
+.tooltip-box {
   position: absolute;
+  top: 120%;
   left: 0;
-  top: 130%;
   width: 260px;
   background: white;
-  border-radius: 10px;
   padding: 12px;
+  border-radius: 10px;
   font-size: 0.9rem;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   opacity: 0;
-  pointer-events: none;
+  transform: translateY(10px);
   transition: 0.25s;
+  pointer-events: none;
   z-index: 10;
 }
 
-.school:hover .school-info {
+.school-row:hover .tooltip-box {
   opacity: 1;
+  transform: translateY(0);
 }
 
-/* POSTER (BIGGER NOW) */
+/* POSTER */
 .poster-img {
   max-width: 650px;
   width: 100%;
@@ -85,19 +93,14 @@ h2 {
   display: block;
   border-radius: 0.75rem;
   box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-  transition: 0.3s;
 }
 
-.poster-img:hover {
-  transform: scale(1.03);
-}
-
-/* DEBATE IMAGE */
+/* DEBATE */
 .debate-img {
   max-width: 550px;
   width: 100%;
-  margin: 1.5rem auto;
   display: block;
+  margin: 1.5rem auto;
   border-radius: 0.75rem;
 }
 
@@ -128,14 +131,19 @@ h2 {
 <div class="main-card">
 
 <!-- HEADER -->
-<div class="header-row">
-  <h1 class="mb-0">Naren Ganesh</h1>
-  <img src="columbia-engineering-logo.png" class="header-logo">
-</div>
+<div class="header">
+  <div class="header-left">
+    <h1>Naren Ganesh</h1>
+    <p class="lead">
+      Electrical Engineering @ Columbia • Researcher • Debater
+    </p>
+  </div>
 
-<p class="lead">
-Electrical Engineering @ Columbia • Researcher • Debater
-</p>
+  <!-- Columbia Engineering logo moved here -->
+  <div class="header-right">
+    <img src="columbia-engineering-logo.png">
+  </div>
+</div>
 
 <!-- ABOUT -->
 <h2>About</h2>
@@ -144,25 +152,29 @@ I work on computational electromagnetics, photonic time crystals, and non-equili
 My research focuses on coherence amplification, energy transport, and nanoscale photonic systems.
 </p>
 
-<!-- EDUCATION WITH HOVER -->
+<!-- EDUCATION -->
 <h2>Education</h2>
 
-<p class="school">
-Columbia University — Electrical Engineering
-<div class="school-info">
-Incoming undergraduate student<br>
-Focus: photonics, electromagnetics, applied physics
-</div>
-</p>
+<div class="school-row">
+  <img src="columbia_logo.png" class="school-logo">
+  <strong>Columbia University — Electrical Engineering</strong>
 
-<p class="school">
-Texas Academy of Mathematics and Science (TAMS)
-<div class="school-info">
-Early college program at UNT<br>
-Advanced coursework + research pipeline<br>
-President of Research Organization
+  <div class="tooltip-box">
+    Incoming undergraduate student<br>
+    Focus: photonics, electromagnetics, applied physics
+  </div>
 </div>
-</p>
+
+<div class="school-row">
+  <img src="tams_logo.png" class="school-logo">
+  <strong>Texas Academy of Mathematics and Science (TAMS)</strong>
+
+  <div class="tooltip-box">
+    Early college program at UNT<br>
+    President, Research Organization<br>
+    Advanced STEM + research training
+  </div>
+</div>
 
 <!-- PROJECTS -->
 <h2>Projects & Research</h2>
@@ -174,9 +186,7 @@ President of Research Organization
 
 <!-- POSTER -->
 <h2>Research Poster</h2>
-<p class="text-center text-muted">
-Click to view full poster
-</p>
+<p class="text-center text-muted">Click to view full poster</p>
 
 <a href="UTA PTC Board (40).pdf" target="_blank">
   <img src="uta-poster-preview.png" class="poster-img">
@@ -186,19 +196,15 @@ Click to view full poster
 <h2>Experience</h2>
 
 <div class="timeline">
-
 <div class="timeline-item">
 <strong>Research Fellow — UNT Physics</strong><br>
-Aug 2024 – Present<br>
-Computational electromagnetics & thermal radiation modeling
+Aug 2024 – Present
 </div>
 
 <div class="timeline-item">
 <strong>President — TAMS Research Organization</strong><br>
-Apr 2025 – Present<br>
-Lead student research initiatives and mentorship programs
+Apr 2025 – Present
 </div>
-
 </div>
 
 <!-- DEBATE -->
