@@ -10,8 +10,16 @@
 <style>
 body {
   font-family: 'Inter', sans-serif;
-  background: #f0f2f5;
   margin: 0;
+  overflow-x: hidden;
+}
+
+/* SPRING BACKGROUND */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 
 /* INTRO */
@@ -25,106 +33,100 @@ body {
 }
 
 @keyframes introAnim {
-  0% { filter: blur(0px); opacity: 1; }
-  60% { filter: blur(20px); }
+  0% { filter: blur(0); opacity: 1; }
   100% { filter: blur(50px); opacity: 0; visibility: hidden; }
 }
 
-/* MAIN */
+/* MAIN CARD */
 .main-card {
-  background: white;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 40px;
   margin: 40px auto;
   max-width: 950px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
 
 /* HEADER */
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .header-left {
-  max-width: 65%;
+  max-width: 70%;
 }
 
 .header-right img {
-  width: 160px;
+  width: 120px;
+  height: auto;
 }
 
 /* TEXT */
-h1 { font-size: 2.8rem; margin-bottom: 10px; }
-h2 { margin-top: 35px; border-bottom: 2px solid #ddd; padding-bottom: 5px; }
+h1 { font-size: 2.8rem; }
+h2 { margin-top: 35px; border-bottom: 2px solid #ccc; }
 
-/* ANIMATIONS */
-.fade {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: 0.8s ease;
-}
-
-.fade.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* EDUCATION */
+/* SCHOOL ROW */
 .school {
   display: flex;
   align-items: center;
   gap: 12px;
-  position: relative;
-  margin-bottom: 15px;
+  margin: 15px 0;
+  cursor: pointer;
 }
 
 .school img {
-  width: 40px;
+  width: 45px;
 }
 
-.tooltip {
-  position: absolute;
-  bottom: -70px;
+/* OVERLAY DROPDOWN */
+.overlay {
+  position: fixed;
+  top: 0;
   left: 0;
-  background: #222;
-  color: white;
-  padding: 10px;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  width: 260px;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(15px);
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   opacity: 0;
+  pointer-events: none;
   transition: 0.3s;
 }
 
-.school:hover .tooltip {
+.overlay.active {
   opacity: 1;
+  pointer-events: all;
+}
+
+.overlay-box {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 400px;
 }
 
 /* POSTER */
 .poster img {
-  width: 70%;
-  border-radius: 12px;
+  width: 75%;
   display: block;
   margin: 20px auto;
-}
-
-/* LIST */
-ul {
-  padding-left: 20px;
+  border-radius: 10px;
 }
 </style>
 </head>
 
 <body>
 
+<canvas id="bg"></canvas>
 <div id="intro"></div>
 
 <div class="main-card">
 
-<!-- HEADER -->
-<div class="header fade">
+<div class="header">
   <div class="header-left">
     <h1>Naren Ganesh</h1>
     <p>Electrical Engineering @ Columbia • Researcher • Debater</p>
@@ -134,101 +136,105 @@ ul {
   </div>
 </div>
 
-<!-- ABOUT -->
-<h2 class="fade">About</h2>
-<p class="fade">
-I work on computational electromagnetics, photonic time crystals, and non-equilibrium thermal radiation.
-My research focuses on coherence amplification, energy transport, and nanoscale photonic systems.
+<h2>About</h2>
+<p>
+Computational electromagnetics, photonic time crystals, and thermal radiation.
 </p>
 
-<!-- EDUCATION -->
-<h2 class="fade">Education</h2>
+<h2>Education</h2>
 
-<div class="school fade">
+<div class="school" onclick="openOverlay('columbia')">
   <img src="columbia_logo.png">
   <strong>Columbia University — Electrical Engineering</strong>
-  <div class="tooltip">
-    C. Prescott Davis Scholar (top ~1%)<br>
-    B.S. Electrical Engineering<br>
-    Minors: Operations Research, Hispanic Studies
-  </div>
 </div>
 
-<div class="school fade">
+<div class="school" onclick="openOverlay('tams')">
   <img src="tams_logo.png">
   <strong>Texas Academy of Math and Science</strong>
-  <div class="tooltip">
-    GPA: 4.0<br>
-    Coursework: PDEs, ODEs, Complex Analysis
-  </div>
 </div>
 
-<!-- EXPERIENCE -->
-<h2 class="fade">Experience</h2>
-
-<ul class="fade">
-<li><strong>President — TAMS Research Organization</strong> (Apr 2025–Present)<br>
-Led financial, logistical, and program operations. Organized 30+ mentorship sessions connecting ~75 students with research faculty.</li>
-
-<li><strong>Undergraduate Research Fellow — UNT Physics</strong> (Aug 2024–Present)<br>
-Developing FDTD simulation libraries, modeling thermal radiation, running 200GB+ COMSOL simulations.</li>
-
-<li><strong>Policy Debater — UNT</strong> (Aug 2024–Present)<br>
-Top 88 nationally in Lincoln-Douglas debate.</li>
-
-<li><strong>Early Researcher — UNT Mechanical Engineering</strong> (May–Aug 2024)<br>
-Built optical metamaterial algorithm (>99% accuracy).</li>
-</ul>
-
-<!-- PROJECTS -->
-<h2 class="fade">Projects & Research</h2>
-
-<ul class="fade">
-<li>FDTD simulations of thermal currents</li>
-<li>COMSOL emissivity modeling using Green's functions</li>
-<li>Photonic time crystal modeling</li>
-</ul>
-
-<!-- POSTER -->
-<h2 class="fade">Research Poster</h2>
-<div class="poster fade">
+<h2>Research Poster</h2>
+<div class="poster">
   <img src="uta-poster-preview.png">
 </div>
 
-<!-- CONFERENCES -->
-<h2 class="fade">Conferences & Talks</h2>
+</div>
 
-<ul class="fade">
-<li>CLEO 2026 — Photonic Time Crystals (Oral)</li>
-<li>Universidad del Cauca — Keynote speaker</li>
-</ul>
-
-<!-- AWARDS -->
-<h2 class="fade">Awards & Achievements</h2>
-
-<ul class="fade">
-<li>Goldwater Scholarship Nomination</li>
-<li>$3,500 SPIE Optics Scholarship</li>
-<li>$1,250 Weiner Scholarship</li>
-<li>$8,000 Summer Research Funding</li>
-<li>UTA Photonics — 2nd Place</li>
-<li>TJAS, FWRSEF, TJSHS Awards</li>
-<li>Debate: Northwestern 2nd Place, NFA Nationals Qualifier</li>
-</ul>
-
+<!-- OVERLAY -->
+<div id="overlay" class="overlay" onclick="closeOverlay()">
+  <div class="overlay-box" id="overlayContent"></div>
 </div>
 
 <script>
-const faders = document.querySelectorAll('.fade');
+/* OVERLAY CONTENT */
+function openOverlay(type) {
+  const overlay = document.getElementById('overlay');
+  const content = document.getElementById('overlayContent');
 
-window.addEventListener('scroll', () => {
-  faders.forEach(el => {
-    const top = el.getBoundingClientRect().top;
-    if (top < window.innerHeight - 50) {
-      el.classList.add('show');
-    }
+  if(type === 'columbia') {
+    content.innerHTML = `
+      <h3>Columbia University</h3>
+      <p>C. Prescott Davis Scholar (Top ~1%)</p>
+      <p>B.S. Electrical Engineering</p>
+      <p>Minors: OR, Hispanic Studies</p>
+    `;
+  }
+
+  if(type === 'tams') {
+    content.innerHTML = `
+      <h3>TAMS</h3>
+      <p>4.0 GPA</p>
+      <p>Coursework: PDEs, ODEs, Complex Analysis</p>
+    `;
+  }
+
+  overlay.classList.add('active');
+}
+
+function closeOverlay() {
+  document.getElementById('overlay').classList.remove('active');
+}
+
+/* SPRING PHYSICS BACKGROUND */
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let springs = [];
+
+for(let i=0;i<30;i++){
+  springs.push({
+    x: i*50,
+    y: canvas.height/2,
+    baseY: canvas.height/2
+  });
+}
+
+window.addEventListener("scroll", () => {
+  let force = window.scrollY * 0.05;
+  springs.forEach((s,i)=>{
+    s.y = s.baseY + Math.sin(i + force) * 40;
   });
 });
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.beginPath();
+  for(let i=0;i<springs.length;i++){
+    let s = springs[i];
+    if(i===0) ctx.moveTo(s.x,s.y);
+    else ctx.lineTo(s.x,s.y);
+  }
+  ctx.strokeStyle = "#4285f4";
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  requestAnimationFrame(animate);
+}
+
+animate();
 </script>
 
 </body>
