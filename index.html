@@ -16,7 +16,7 @@ body {
   margin: 0;
 }
 
-/* Main card */
+/* MAIN */
 .main-card {
   background: #fff;
   border-radius: 1.25rem;
@@ -24,17 +24,10 @@ body {
   margin: 2rem auto;
   box-shadow: 0 20px 40px rgba(0,0,0,0.05);
   max-width: 860px;
-  opacity: 0;
-  animation: fadeIn 1.5s ease forwards;
-  animation-delay: 1.5s;
 }
 
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
-
+/* HEADINGS */
 h1 { font-size: 2.75rem; font-weight: 600; }
-
 h2 {
   font-size: 1.5rem;
   margin-top: 2rem;
@@ -43,17 +36,19 @@ h2 {
   padding-bottom: 0.25rem;
 }
 
+/* IMAGES */
 img {
   border-radius: 0.5rem;
   margin-top: 1.5rem;
   max-width: 100%;
 }
 
-/* INTRO ANIMATION */
+/* INTRO OVERLAY */
 #intro-overlay {
   position: fixed;
   top:0; left:0;
-  width:100%; height:100%;
+  width:100%;
+  height:100%;
   background:black;
   z-index:9999;
 }
@@ -69,17 +64,30 @@ img {
   pointer-events:none;
 }
 
+/* SCROLL ANIMATIONS */
+.fade-in {
+  opacity:0;
+  transform:translateY(40px);
+  transition:0.8s ease;
+}
+
+.fade-in.visible {
+  opacity:1;
+  transform:translateY(0);
+}
+
+.delay-1 { transition-delay:0.1s; }
+.delay-2 { transition-delay:0.2s; }
+
 /* TIMELINE */
 .timeline {
   border-left:2px solid #ddd;
   padding-left:1.5rem;
 }
-
 .timeline-item {
   margin-bottom:1.5rem;
   position:relative;
 }
-
 .timeline-item::before {
   content:"";
   position:absolute;
@@ -99,10 +107,23 @@ img {
   border-radius:1rem;
   margin-top:1rem;
 }
+
+/* LOGO */
+#columbia-logo {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  z-index: 1000;
+  opacity: 0.9;
+}
 </style>
 </head>
 
 <body>
+
+<!-- LOGO -->
+<img id="columbia-logo" src="columbia-engineering-logo.png">
 
 <!-- INTRO -->
 <div id="intro-overlay">
@@ -111,38 +132,34 @@ img {
 
 <div class="main-card">
 
-<h1>Naren Ganesh</h1>
-<p class="lead">Electrical Engineering @ Columbia • Researcher • Debater</p>
+<h1 class="fade-in">Naren Ganesh</h1>
+<p class="lead fade-in delay-1">Electrical Engineering @ Columbia • Researcher • Debater</p>
 
-<h2>About</h2>
-<p>
+<h2 class="fade-in">GitHub Contributions</h2>
+<img class="fade-in delay-1" src="https://ghchart.rshah.org/4285f4/NarenGG">
+
+<h2 class="fade-in">About</h2>
+<p class="fade-in delay-1">
 I work on computational electromagnetics, photonic time crystals, and thermal radiation.
-My research focuses on non-equilibrium heat transfer and coherence amplification in optical systems.
 </p>
 
-<h2>Projects & Research</h2>
-<ul>
-  <li>FDTD simulations for thermal radiation</li>
-  <li>COMSOL electromagnetic modeling</li>
-  <li>Photonic time-crystal research</li>
+<h2 class="fade-in">Projects & Research</h2>
+<ul class="fade-in delay-1">
+<li>FDTD simulations</li>
+<li>COMSOL modeling</li>
+<li>Photonic time crystals</li>
 </ul>
 
-<!-- 🔥 FDTD ANIMATION -->
-<h2>Simulation Visualization</h2>
-<canvas id="fdtd-canvas"></canvas>
+<h2 class="fade-in">Simulation Visualization</h2>
+<canvas id="fdtd-canvas" class="fade-in delay-1"></canvas>
 
-<!-- POSTER -->
-<h2>Featured Research Poster</h2>
-<p>
-Energy and coherence amplification in photonic time crystals.
-</p>
-
+<h2 class="fade-in">Featured Research Poster</h2>
 <a href="UTA PTC Board (40).pdf" target="_blank">
-  <img src="uta-poster-preview.png">
+<img src="uta-poster-preview.png" class="fade-in delay-1">
 </a>
 
-<h2>Experience</h2>
-<div class="timeline">
+<h2 class="fade-in">Experience</h2>
+<div class="timeline fade-in delay-1">
 
 <div class="timeline-item">
 <strong>Research Fellow — UNT Physics</strong><br>
@@ -159,12 +176,16 @@ Apr 2025 – Present
 </div>
 
 <script>
-/* PIXEL INTRO */
+/* ---------- PIXEL INTRO ---------- */
 const canvas = document.getElementById("pixel-canvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
 const img = new Image();
 img.src = "columbia.jpg";
@@ -181,7 +202,7 @@ img.onload = () => {
       }
     }
 
-    size -= 2;
+    size *= 0.92;
 
     if(size > 1){
       requestAnimationFrame(animate);
@@ -193,7 +214,20 @@ img.onload = () => {
   animate();
 };
 
-/* FDTD STYLE WAVE */
+/* ---------- SCROLL ANIMATION ---------- */
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+    }
+  });
+},{threshold:0.15});
+
+document.querySelectorAll('.fade-in').forEach(el=>{
+  observer.observe(el);
+});
+
+/* ---------- FDTD WAVE ---------- */
 const fdtd = document.getElementById("fdtd-canvas");
 const fctx = fdtd.getContext("2d");
 
@@ -208,9 +242,9 @@ function drawWave(){
   fctx.beginPath();
 
   for(let x=0;x<fdtd.width;x++){
-    let y = fdtd.height/2 + 
-            Math.sin((x*0.02) - t)*30 * 
-            Math.exp(-Math.pow((x - fdtd.width/2)/200,2));
+    let y = fdtd.height/2 +
+      Math.sin(x*0.02 - t)*30 *
+      Math.exp(-Math.pow((x - fdtd.width/2)/200,2));
 
     fctx.lineTo(x,y);
   }
@@ -220,7 +254,6 @@ function drawWave(){
   fctx.stroke();
 
   t += 0.05;
-
   requestAnimationFrame(drawWave);
 }
 
