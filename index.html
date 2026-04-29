@@ -11,17 +11,16 @@
 <style>
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #f0f2f5;
-  margin: 0;
+  background: #f0f2f5;
 }
 
 /* MAIN CARD */
 .main-card {
-  background: #fff;
+  background: white;
   border-radius: 1.25rem;
   padding: 2.5rem;
   margin: 2rem auto;
-  max-width: 860px;
+  max-width: 900px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.05);
 }
 
@@ -40,42 +39,62 @@ body {
 h1 { font-size: 2.75rem; font-weight: 600; }
 
 h2 {
-  font-size: 1.5rem;
   margin-top: 2rem;
+  font-size: 1.5rem;
   border-bottom: 2px solid #ddd;
   padding-bottom: 0.25rem;
 }
 
-/* SCROLL ANIMATION */
-.fade-in {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: 0.8s ease;
+/* HOVER SCHOOL CARDS */
+.school {
+  position: relative;
+  cursor: pointer;
+  font-weight: 600;
+  color: #333;
 }
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.delay-1 { transition-delay: 0.1s; }
 
-/* POSTER (FIXED PROPER SIZE) */
+.school:hover {
+  color: #4285f4;
+}
+
+.school-info {
+  position: absolute;
+  left: 0;
+  top: 130%;
+  width: 260px;
+  background: white;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 0.9rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.25s;
+  z-index: 10;
+}
+
+.school:hover .school-info {
+  opacity: 1;
+}
+
+/* POSTER (BIGGER NOW) */
 .poster-img {
-  max-width: 520px;  /* 🔥 bigger but controlled */
+  max-width: 650px;
   width: 100%;
+  margin: 2rem auto;
   display: block;
-  margin: 1.5rem auto;
   border-radius: 0.75rem;
-  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
   transition: 0.3s;
 }
 
 .poster-img:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
 /* DEBATE IMAGE */
 .debate-img {
-  max-width: 500px;
+  max-width: 550px;
   width: 100%;
   margin: 1.5rem auto;
   display: block;
@@ -101,14 +120,6 @@ h2 {
   background: #4285f4;
   border-radius: 50%;
 }
-
-/* FDTD */
-#fdtd-canvas {
-  width: 100%;
-  height: 300px;
-  background: black;
-  border-radius: 1rem;
-}
 </style>
 </head>
 
@@ -117,126 +128,104 @@ h2 {
 <div class="main-card">
 
 <!-- HEADER -->
-<div class="header-row fade-in">
+<div class="header-row">
   <h1 class="mb-0">Naren Ganesh</h1>
   <img src="columbia-engineering-logo.png" class="header-logo">
 </div>
 
-<p class="lead fade-in delay-1">
+<p class="lead">
 Electrical Engineering @ Columbia • Researcher • Debater
 </p>
 
-<h2 class="fade-in">About</h2>
-<p class="fade-in delay-1">
+<!-- ABOUT -->
+<h2>About</h2>
+<p>
 I work on computational electromagnetics, photonic time crystals, and non-equilibrium thermal radiation.
-My research explores coherence amplification and energy transport in engineered optical systems.
+My research focuses on coherence amplification, energy transport, and nanoscale photonic systems.
 </p>
 
-<h2 class="fade-in">Education</h2>
-<ul class="fade-in delay-1">
-<li>Columbia University — Electrical Engineering (Incoming)</li>
-<li>Texas Academy of Mathematics and Science (TAMS)</li>
+<!-- EDUCATION WITH HOVER -->
+<h2>Education</h2>
+
+<p class="school">
+Columbia University — Electrical Engineering
+<div class="school-info">
+Incoming undergraduate student<br>
+Focus: photonics, electromagnetics, applied physics
+</div>
+</p>
+
+<p class="school">
+Texas Academy of Mathematics and Science (TAMS)
+<div class="school-info">
+Early college program at UNT<br>
+Advanced coursework + research pipeline<br>
+President of Research Organization
+</div>
+</p>
+
+<!-- PROJECTS -->
+<h2>Projects & Research</h2>
+<ul>
+<li>Finite-Difference Time-Domain (FDTD) simulations of thermal currents</li>
+<li>COMSOL modeling of emissivity using Green’s functions</li>
+<li>Photonic time crystal energy amplification research</li>
 </ul>
 
-<h2 class="fade-in">Projects & Research</h2>
-<ul class="fade-in delay-1">
-<li>Finite-Difference Time-Domain (FDTD) simulations</li>
-<li>COMSOL multiphysics modeling</li>
-<li>Photonic time crystals and thermal radiation</li>
-</ul>
-
-<h2 class="fade-in">Simulation</h2>
-<canvas id="fdtd-canvas" class="fade-in delay-1"></canvas>
-
-<h2 class="fade-in">Research Poster</h2>
-<p class="text-center text-muted fade-in delay-1">
-Featured work: Energy & Coherence Amplification in Photonic Time Crystals
+<!-- POSTER -->
+<h2>Research Poster</h2>
+<p class="text-center text-muted">
+Click to view full poster
 </p>
 
 <a href="UTA PTC Board (40).pdf" target="_blank">
-  <img src="uta-poster-preview.png" class="poster-img fade-in delay-1">
+  <img src="uta-poster-preview.png" class="poster-img">
 </a>
 
-<h2 class="fade-in">Experience</h2>
-<div class="timeline fade-in delay-1">
+<!-- EXPERIENCE -->
+<h2>Experience</h2>
+
+<div class="timeline">
 
 <div class="timeline-item">
 <strong>Research Fellow — UNT Physics</strong><br>
-Aug 2024 – Present
+Aug 2024 – Present<br>
+Computational electromagnetics & thermal radiation modeling
 </div>
 
 <div class="timeline-item">
 <strong>President — TAMS Research Organization</strong><br>
-Apr 2025 – Present
+Apr 2025 – Present<br>
+Lead student research initiatives and mentorship programs
 </div>
 
 </div>
 
-<h2 class="fade-in">Debate</h2>
-<p class="fade-in delay-1">
+<!-- DEBATE -->
+<h2>Debate</h2>
+<p>
 Nationally-ranked Lincoln-Douglas debater focused on critical legal theory, international relations, and philosophy.
 Quarterfinalist at WKU Spring Showcase and NFA-LD Nationals qualifier.
 </p>
 
-<img src="debate.png" class="debate-img fade-in delay-1">
+<img src="debate.png" class="debate-img">
 
-<h2 class="fade-in">Awards</h2>
-<ul class="fade-in delay-1">
+<!-- AWARDS -->
+<h2>Awards</h2>
+<ul>
 <li>NFA-LD Nationals Qualification</li>
 <li>WKU Spring Showcase — Quarterfinalist, 3rd Speaker</li>
 <li>TAMS Research Leadership Recognition</li>
 </ul>
 
-<h2 class="fade-in">Connect</h2>
-<ul class="fade-in delay-1">
+<!-- CONNECT -->
+<h2>Connect</h2>
+<ul>
 <li><a href="https://github.com/NarenGG">GitHub</a></li>
 <li><a href="mailto:naren@example.com">Email</a></li>
 </ul>
 
 </div>
-
-<script>
-/* SCROLL */
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add("visible");
-    }
-  });
-});
-document.querySelectorAll('.fade-in').forEach(el=>{
-  observer.observe(el);
-});
-
-/* FDTD */
-const fdtd = document.getElementById("fdtd-canvas");
-const fctx = fdtd.getContext("2d");
-
-fdtd.width = fdtd.offsetWidth;
-fdtd.height = 300;
-
-let t = 0;
-
-function wave(){
-  fctx.clearRect(0,0,fdtd.width,fdtd.height);
-  fctx.beginPath();
-
-  for(let x=0;x<fdtd.width;x++){
-    let y = fdtd.height/2 +
-      Math.sin(x*0.02 - t)*30 *
-      Math.exp(-Math.pow((x - fdtd.width/2)/200,2));
-    fctx.lineTo(x,y);
-  }
-
-  fctx.strokeStyle="#00d4ff";
-  fctx.stroke();
-
-  t+=0.05;
-  requestAnimationFrame(wave);
-}
-
-wave();
-</script>
 
 </body>
 </html>
