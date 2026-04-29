@@ -5,29 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Naren Ganesh</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 body {
+  margin: 0;
   font-family: 'Inter', sans-serif;
   background: #f0f2f5;
-  margin: 0;
 }
 
-/* PIXEL INTRO */
+/* ===== PIXEL INTRO ===== */
 #intro {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 9999;
   overflow: hidden;
+  background: black;
 }
 
 #intro img {
@@ -35,26 +31,20 @@ body {
   height: 100%;
   object-fit: cover;
   image-rendering: pixelated;
-  transition: filter 1.5s ease;
+  transform-origin: center;
 }
 
-.fade-out {
-  opacity: 0;
-  transition: opacity 1.2s ease;
-  pointer-events: none;
-}
-
-/* MAIN CARD */
+/* ===== MAIN CARD ===== */
 .main-card {
   background: white;
-  border-radius: 1.25rem;
-  padding: 2.5rem;
-  margin: 2rem auto;
   max-width: 900px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  border-radius: 1.25rem;
   box-shadow: 0 20px 40px rgba(0,0,0,0.05);
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 .header {
   display: flex;
   justify-content: space-between;
@@ -65,8 +55,8 @@ body {
   width: 70px;
 }
 
-/* HEADINGS */
-h1 { font-size: 2.75rem; font-weight: 600; }
+/* ===== TEXT ===== */
+h1 { font-size: 2.75rem; margin: 0; }
 
 h2 {
   margin-top: 2rem;
@@ -74,14 +64,13 @@ h2 {
   padding-bottom: 0.25rem;
 }
 
-/* SCHOOL ROW */
+/* ===== SCHOOL ===== */
 .school-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 1rem;
   position: relative;
-  width: fit-content;
+  margin-bottom: 1rem;
   cursor: pointer;
 }
 
@@ -89,60 +78,77 @@ h2 {
   width: 28px;
 }
 
-/* TOOLTIP */
-.tooltip-box {
+.tooltip {
   position: absolute;
   top: 120%;
   left: 0;
-  width: 260px;
   background: white;
-  padding: 12px;
-  border-radius: 10px;
-  font-size: 0.9rem;
+  padding: 10px;
+  width: 260px;
+  border-radius: 8px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   opacity: 0;
   transform: translateY(10px);
   transition: 0.25s;
-  pointer-events: none;
 }
 
-.school-row:hover .tooltip-box {
+.school-row:hover .tooltip {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* POSTER */
+/* ===== POSTER ===== */
 .poster-img {
-  max-width: 650px;
+  max-width: 700px;
   width: 100%;
-  margin: 2rem auto;
   display: block;
-  border-radius: 0.75rem;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  margin: 2rem auto;
+  border-radius: 12px;
+  cursor: pointer;
 }
 
-/* DEBATE */
+/* ===== MODAL ===== */
+#modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9998;
+}
+
+#modal img {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+/* ===== DEBATE ===== */
 .debate-img {
   max-width: 550px;
-  width: 100%;
   display: block;
   margin: 1.5rem auto;
-  border-radius: 0.75rem;
+  border-radius: 10px;
 }
 
-/* TIMELINE */
+/* ===== TIMELINE ===== */
 .timeline {
   border-left: 2px solid #ddd;
   padding-left: 1.5rem;
 }
+
 .timeline-item {
   margin-bottom: 1.5rem;
   position: relative;
 }
+
 .timeline-item::before {
   content: "";
   position: absolute;
-  left: -1.65rem;
+  left: -1.6rem;
   top: 5px;
   width: 10px;
   height: 10px;
@@ -154,9 +160,14 @@ h2 {
 
 <body>
 
-<!-- PIXEL INTRO -->
+<!-- ===== INTRO ===== -->
 <div id="intro">
   <img id="intro-img" src="columbia-campus.jpg">
+</div>
+
+<!-- ===== MODAL ===== -->
+<div id="modal" onclick="closeModal()">
+  <img id="modal-img">
 </div>
 
 <div class="main-card">
@@ -165,11 +176,8 @@ h2 {
 <div class="header">
   <div>
     <h1>Naren Ganesh</h1>
-    <p class="lead">
-      Electrical Engineering @ Columbia • Researcher • Debater
-    </p>
+    <p>Electrical Engineering @ Columbia • Researcher • Debater</p>
   </div>
-
   <div class="header-right">
     <img src="columbia-engineering-logo.png">
   </div>
@@ -177,100 +185,88 @@ h2 {
 
 <h2>About</h2>
 <p>
-I work on computational electromagnetics, photonic time crystals, and non-equilibrium thermal radiation.
-My research focuses on coherence amplification, energy transport, and nanoscale photonic systems.
+Computational electromagnetics, photonic time crystals, and non-equilibrium thermal radiation.
 </p>
 
 <h2>Education</h2>
 
 <div class="school-row">
-  <img src="columbia-logo.png" class="school-logo">
+  <img src="columbia_logo.png" class="school-logo">
   <strong>Columbia University — Electrical Engineering</strong>
-
-  <div class="tooltip-box">
+  <div class="tooltip">
     Incoming undergraduate student<br>
-    Focus: photonics, electromagnetics, applied physics
+    Focus: photonics, electromagnetics
   </div>
 </div>
 
 <div class="school-row">
-  <img src="tams-logo.png" class="school-logo">
-  <strong>Texas Academy of Mathematics and Science (TAMS)</strong>
-
-  <div class="tooltip-box">
-    Early college program at UNT<br>
-    President, Research Organization<br>
-    Advanced STEM + research pipeline
+  <img src="tams_logo.png" class="school-logo">
+  <strong>TAMS — UNT</strong>
+  <div class="tooltip">
+    Early college program<br>
+    President, Research Organization
   </div>
 </div>
 
 <h2>Projects & Research</h2>
 <ul>
-<li>Finite-Difference Time-Domain (FDTD) simulations</li>
-<li>COMSOL modeling using Green’s functions</li>
-<li>Photonic time crystal energy amplification</li>
+<li>FDTD simulations</li>
+<li>COMSOL modeling</li>
+<li>Photonic time crystals</li>
 </ul>
 
 <h2>Research Poster</h2>
-<p class="text-center text-muted">Click to view full poster</p>
-
-<a href="UTA PTC Board (40).pdf" target="_blank">
-  <img src="uta-poster-preview.png" class="poster-img">
-</a>
+<img src="uta-poster-preview.png" class="poster-img" onclick="openModal(this)">
 
 <h2>Experience</h2>
-
 <div class="timeline">
-<div class="timeline-item">
-<strong>Research Fellow — UNT Physics</strong><br>
-Aug 2024 – Present
-</div>
-
-<div class="timeline-item">
-<strong>President — TAMS Research Organization</strong><br>
-Apr 2025 – Present
-</div>
+<div class="timeline-item">Research Fellow — UNT Physics</div>
+<div class="timeline-item">President — TAMS Research Organization</div>
 </div>
 
 <h2>Debate</h2>
-<p>
-Nationally-ranked Lincoln-Douglas debater focused on critical legal theory and philosophy.
-</p>
-
+<p>Nationally-ranked LD debater</p>
 <img src="debate.png" class="debate-img">
 
 <h2>Awards</h2>
 <ul>
-<li>NFA-LD Nationals Qualification</li>
-<li>WKU Spring Showcase — Quarterfinalist</li>
-<li>TAMS Research Leadership Recognition</li>
+<li>NFA Nationals Qualifier</li>
+<li>WKU Quarterfinalist</li>
 </ul>
 
 </div>
 
 <script>
-/* PIXEL TRANSITION FIX */
+/* ===== PIXEL EFFECT ===== */
 const img = document.getElementById("intro-img");
 const intro = document.getElementById("intro");
 
-let pixel = 40;
+let scale = 0.05;
 
 const interval = setInterval(() => {
-  pixel -= 2;
-  img.style.filter = `blur(${pixel}px)`;
+  scale += 0.05;
+  img.style.transform = `scale(${scale})`;
 
-  if (pixel <= 0) {
+  if (scale >= 1) {
     clearInterval(interval);
-
-    setTimeout(() => {
-      intro.classList.add("fade-out");
-    }, 500);
+    intro.style.transition = "opacity 1s";
+    intro.style.opacity = "0";
 
     setTimeout(() => {
       intro.style.display = "none";
-    }, 1800);
+    }, 1000);
   }
-}, 50);
+}, 60);
+
+/* ===== MODAL ===== */
+function openModal(img) {
+  document.getElementById("modal").style.display = "flex";
+  document.getElementById("modal-img").src = img.src;
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
 </script>
 
 </body>
