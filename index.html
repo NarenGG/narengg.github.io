@@ -1,282 +1,570 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Naren Ganesh</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
+  background: #f0f2f5;
+  color: #1c1e21;
   overflow-x: hidden;
 }
 
-/* CANVAS BACKGROUND */
-canvas {
+#spring-bg {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   z-index: -1;
 }
 
-/* INTRO */
 #intro {
   position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
+  overflow: hidden;
+}
+
+#intro-canvas {
   width: 100%;
   height: 100%;
-  background: url("columbia-campus.jpg") center/cover no-repeat;
-  z-index: 9999;
-  animation: introAnim 2.5s forwards;
+  display: block;
 }
 
-@keyframes introAnim {
-  0% { opacity: 1; filter: blur(0); }
-  100% { opacity: 0; filter: blur(40px); visibility: hidden; }
+.site {
+  max-width: 980px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
 
-/* MAIN CARD */
-.main-card {
-  background: rgba(255,255,255,0.9);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 40px;
-  margin: 40px auto;
-  max-width: 950px;
+.card {
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(12px);
+  border-radius: 1.25rem;
+  padding: 2.5rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
 
-/* HEADER */
+.nav-tabs {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.75rem;
+}
+
+.nav-tabs button {
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+}
+
+.nav-tabs button.active {
+  background: #1c1e21;
+  color: white;
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 
-.header-left {
-  flex: 1;
+.header h1 {
+  font-size: 3rem;
+  margin: 0 0 0.5rem;
+  font-weight: 700;
 }
 
-.header-right {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+.header p {
+  font-size: 1.25rem;
+  margin: 0;
 }
 
-.header-right img {
-  height: 90px;   /* ✅ FIXED: scales nicely */
-  width: auto;
-}
-
-/* TEXT */
-h1 {
-  font-size: 2.8rem;
-  margin-bottom: 10px;
+.header-logo {
+  width: 145px;
+  height: auto;
+  object-fit: contain;
 }
 
 h2 {
-  margin-top: 35px;
-  border-bottom: 2px solid #ccc;
+  margin-top: 2rem;
+  font-size: 1.6rem;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.35rem;
 }
 
-/* SCHOOL ROW */
-.school {
+.school-row {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin: 15px 0;
-  cursor: pointer;
+  gap: 0.9rem;
+  margin: 1.25rem 0;
+  width: fit-content;
 }
 
 .logo-box {
-  width: 45px;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
 }
 
 .logo-box img {
   max-width: 100%;
   max-height: 100%;
+  object-fit: contain;
 }
 
-/* OVERLAY */
-.overlay {
-  position: fixed;
-  top: 0;
+.hover-card {
+  position: absolute;
   left: 0;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(20px);
-  background: rgba(0,0,0,0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  top: 115%;
+  width: 340px;
+  padding: 1rem;
+  border-radius: 0.9rem;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 16px 30px rgba(0,0,0,0.14);
   opacity: 0;
+  transform: translateY(10px);
   pointer-events: none;
-  transition: 0.3s;
+  transition: 0.25s ease;
+  z-index: 50;
 }
 
-.overlay.active {
+.school-row:hover .hover-card {
   opacity: 1;
-  pointer-events: all;
+  transform: translateY(0);
 }
 
-.overlay-box {
-  background: white;
-  padding: 30px;
-  border-radius: 15px;
-  max-width: 420px;
+.experience-item {
+  margin: 1.4rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid #4285f4;
 }
 
-/* POSTER */
-.poster img {
-  width: 70%;
+.experience-item h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.meta {
+  color: #666;
+  font-size: 0.95rem;
+  margin: 0.2rem 0 0.5rem;
+}
+
+ul {
+  margin-top: 0.4rem;
+  padding-left: 1.3rem;
+}
+
+.poster-img,
+.debate-img {
+  max-width: 680px;
+  width: 100%;
   display: block;
-  margin: 20px auto;
-  border-radius: 10px;
+  margin: 1.5rem auto;
+  border-radius: 0.9rem;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+
+.blog-placeholder {
+  padding: 1.25rem;
+  border-radius: 1rem;
+  background: rgba(255,255,255,0.7);
+}
+
+@media (max-width: 700px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .header-logo {
+    width: 110px;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+
+  .header h1 {
+    font-size: 2.35rem;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="bg"></canvas>
-<div id="intro"></div>
+<canvas id="spring-bg"></canvas>
 
-<div class="main-card">
+<div id="intro">
+  <canvas id="intro-canvas"></canvas>
+</div>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="header-left">
-    <h1>Naren Ganesh</h1>
-    <p>Electrical Engineering @ Columbia • Researcher • Debater</p>
+<div class="site">
+  <div class="card">
+
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="home">Home</button>
+      <button class="tab-btn" data-tab="projects">Projects</button>
+      <button class="tab-btn" data-tab="blog">Blog</button>
+    </nav>
+
+    <section id="home" class="tab-panel active">
+      <div class="header">
+        <div>
+          <h1>Naren Ganesh</h1>
+          <p>Electrical Engineering @ Columbia • Researcher • Debater</p>
+        </div>
+        <img src="columbia-engineering-logo.png" alt="Columbia Engineering logo" class="header-logo">
+      </div>
+
+      <h2>About</h2>
+      <p>
+        I work on computational electromagnetics, photonic time crystals, and non-equilibrium thermal radiation,
+        with interests spanning silicon photonics, hearing preservation, and law & society.
+      </p>
+
+      <h2>Education</h2>
+
+      <div class="school-row">
+        <div class="logo-box">
+          <img src="columbia_logo.png" alt="Columbia logo">
+        </div>
+        <strong>Columbia University in the City of New York</strong>
+        <div class="hover-card">
+          <strong>Class of 2030</strong><br>
+          Fu Foundation SEAS<br>
+          B.S. Electrical Engineering<br>
+          Minor: Operations Research<br>
+          Minor: Hispanic Studies<br><br>
+          Honors: C. Prescott Davis Scholar, awarded to the top ~1% of Columbia Engineering applicants.
+        </div>
+      </div>
+
+      <div class="school-row">
+        <div class="logo-box">
+          <img src="tams_logo.png" alt="TAMS logo">
+        </div>
+        <strong>Texas Academy of Math and Science</strong>
+        <div class="hover-card">
+          <strong>Class of 2026</strong><br>
+          High School Diploma, Electrical Engineering<br>
+          GPA: 4.0/4.0 UW<br><br>
+          TAMS is a 2-year residential program where students complete college classes at UNT.<br><br>
+          Coursework: Partial Differential Equations, Ordinary Differential Equations, Complex Analysis.
+        </div>
+      </div>
+
+      <h2>Experience</h2>
+
+      <div class="experience-item">
+        <h3>Texas Academy of Mathematics and Science</h3>
+        <p class="meta">President, Research Organization • April 2025–Present</p>
+        <ul>
+          <li>Elected to lead financial, logistical, and program operations for campus research initiatives.</li>
+          <li>Organized 30+ mentorship sessions, connected ~75 students with UNT PIs, and directed fundraising/logistics supporting competition travel.</li>
+        </ul>
+      </div>
+
+      <div class="experience-item">
+        <h3>University of North Texas</h3>
+        <p class="meta">Undergraduate Research Fellow, Department of Physics | Xiao Group • Aug 2024–Present</p>
+        <ul>
+          <li>Investigating breakthrough methods for hearing preservation and modeling thermal radiation in photonic time crystals.</li>
+          <li>Building and maintaining a library of custom finite-difference time-domain simulations in MATLAB.</li>
+          <li>Executing large-scale 200+ GB optical simulations in COMSOL Multiphysics via Simulink and C++.</li>
+        </ul>
+      </div>
+
+      <div class="experience-item">
+        <h3>University of North Texas</h3>
+        <p class="meta">Undergraduate Policy Debater, Department of Communication Studies • Aug 2024–Present</p>
+        <ul>
+          <li>Competing in college-level Lincoln-Douglas and cross-examination debate as a high school student.</li>
+          <li>Highest rank in Lincoln-Douglas: 88th in the United States.</li>
+        </ul>
+      </div>
+
+      <div class="experience-item">
+        <h3>University of North Texas</h3>
+        <p class="meta">Early Summer Researcher, Department of Mechanical Engineering | Zhang Group • May 2024–Aug 2024</p>
+        <ul>
+          <li>Shipped an optical algorithm to predict the properties of metamaterials for solar panel applications.</li>
+          <li>Modeled candidate oxide refractive index via custom-fit Lorentz-Drude model with greater than 99% accuracy.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="projects" class="tab-panel">
+      <h2>Projects & Research</h2>
+      <ul>
+        <li>1D finite-difference time-domain simulations of thermal currents.</li>
+        <li>2D/3D COMSOL simulations of emissivity via Green’s function approach.</li>
+        <li>Photonic time-crystal modeling for energy and coherence amplification of blackbody radiation.</li>
+      </ul>
+
+      <h2>Research Poster</h2>
+      <img src="uta-poster-preview.png" alt="UTA photonics research poster preview" class="poster-img">
+
+      <h2>Selected Conferences & Invited Talks</h2>
+      <ul>
+        <li>
+          Luis Cortes-Herrera, Naren Ganesh, Jack Hasty, Yuzhe Xiao.
+          “Energy Amplification and Coherence Enhancement of Blackbody Radiation in 1D Photonic Time-Crystals.”
+          Oral Presentation at Conference on Lasers and Electro-Optics (CLEO), May 20, 2026; publication forthcoming.
+        </li>
+        <li>
+          Naren Ganesh (keynote speaker), Luis Cortes-Herrera, Yuzhe Xiao.
+          “El desarrollo de simulaciones electromagnéticas de radiación térmica para avanzar en fototerapias cocleares novedosas para la conversación de la audición.”
+          Celebración del Día Nacional del Fonoaudiólogo at Universidad del Cauca, September 26, 2025.
+        </li>
+      </ul>
+
+      <h2>Awards & Achievements</h2>
+      <ul>
+        <li>
+          <strong>Scholarships:</strong> Barry M. Goldwater Scholarship Nomination (2025), $3,500 SPIE Optics & Photonics (2025),
+          $1,250 Steve and Kathy Weiner (2025), $8,000 Summer Research (2024 & 2025),
+          $1,000 Undergraduate Research Fellow (2024 & 2025), Hispanic Scholarship Fund Finalist.
+        </li>
+        <li>
+          <strong>Research Awards:</strong> 2nd Place Poster at UTA Photonics Workshop,
+          Honorable Mention in Physical Science at TJAS (2025), 3rd Place in Physics at FWRSEF (2025),
+          Top 8 for Physical Sciences and Energy Engineering, TJSHS (2025 & 2023).
+        </li>
+        <li>
+          <strong>Debate Awards:</strong> 2nd place at Northwestern (JV), quarterfinalist and 3rd speaker at Western Kentucky (novice),
+          and first high schooler to qualify to the 2025 NFA-LD Nationals.
+        </li>
+      </ul>
+
+      <h2>Debate</h2>
+      <p>
+        Lincoln-Douglas and cross-examination debater focused on critical legal theory, international relations, and philosophy.
+      </p>
+      <img src="debate.png" alt="Debate photo" class="debate-img">
+    </section>
+
+    <section id="blog" class="tab-panel">
+      <h2>Blog</h2>
+      <div class="blog-placeholder">
+        <strong>Coming soon.</strong>
+        <p>Ideas for posts: photonic time crystals, FDTD notes, debate theory, and research reflections.</p>
+      </div>
+    </section>
+
   </div>
-
-  <div class="header-right">
-    <img src="columbia-engineering-logo.png">
-  </div>
-</div>
-
-<h2>About</h2>
-<p>
-Computational electromagnetics, photonic time crystals, and thermal radiation.
-</p>
-
-<h2>Education</h2>
-
-<div class="school" onclick="openOverlay('columbia')">
-  <div class="logo-box">
-    <img src="columbia_logo.png">
-  </div>
-  <strong>Columbia University — Electrical Engineering</strong>
-</div>
-
-<div class="school" onclick="openOverlay('tams')">
-  <div class="logo-box">
-    <img src="tams_logo.png">
-  </div>
-  <strong>Texas Academy of Math and Science</strong>
-</div>
-
-<h2>Research Poster</h2>
-<div class="poster">
-  <img src="uta-poster-preview.png">
-</div>
-
-</div>
-
-<!-- OVERLAY -->
-<div id="overlay" class="overlay" onclick="closeOverlay(event)">
-  <div class="overlay-box" id="overlayContent"></div>
 </div>
 
 <script>
-/* OVERLAY FIX */
-function openOverlay(type) {
-  const overlay = document.getElementById('overlay');
-  const content = document.getElementById('overlayContent');
+/* Tabs */
+document.querySelectorAll(".tab-btn").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach(panel => panel.classList.remove("active"));
 
-  if(type === 'columbia') {
-    content.innerHTML = `
-      <h3>Columbia University</h3>
-      <p>C. Prescott Davis Scholar (Top ~1%)</p>
-      <p>B.S. Electrical Engineering</p>
-      <p>Minors: OR, Hispanic Studies</p>
-    `;
-  }
-
-  if(type === 'tams') {
-    content.innerHTML = `
-      <h3>TAMS</h3>
-      <p>4.0 GPA</p>
-      <p>Coursework: PDEs, ODEs, Complex Analysis</p>
-    `;
-  }
-
-  overlay.classList.add('active');
-}
-
-function closeOverlay(e) {
-  if(e.target.id === "overlay") {
-    document.getElementById('overlay').classList.remove('active');
-  }
-}
-
-/* TRUE SPRING PHYSICS */
-const canvas = document.getElementById("bg");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let nodes = [];
-let spacing = 40;
-
-for(let i=0;i<canvas.width/spacing;i++){
-  nodes.push({
-    x: i*spacing,
-    y: canvas.height/2,
-    vy: 0
+    button.classList.add("active");
+    document.getElementById(button.dataset.tab).classList.add("active");
   });
-}
-
-let scrollForce = 0;
-
-window.addEventListener("scroll", () => {
-  scrollForce += window.scrollY * 0.0005;
 });
 
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+/* Pixelated intro */
+const intro = document.getElementById("intro");
+const introCanvas = document.getElementById("intro-canvas");
+const introCtx = introCanvas.getContext("2d");
+const offCanvas = document.createElement("canvas");
+const offCtx = offCanvas.getContext("2d");
+const campus = new Image();
+campus.src = "columbia-campus.jpg";
 
-  for(let i=0;i<nodes.length;i++){
-    let n = nodes[i];
+function resizeIntro() {
+  introCanvas.width = window.innerWidth;
+  introCanvas.height = window.innerHeight;
+}
+resizeIntro();
+window.addEventListener("resize", resizeIntro);
 
-    let targetY = canvas.height/2 + Math.sin(i + scrollForce) * 50;
+function drawCover(context, image, w, h) {
+  const ir = image.width / image.height;
+  const cr = w / h;
+  let dw, dh, dx, dy;
 
-    let force = (targetY - n.y) * 0.1;
-    n.vy += force;
-    n.vy *= 0.9;
-    n.y += n.vy;
+  if (ir > cr) {
+    dh = h;
+    dw = h * ir;
+    dx = (w - dw) / 2;
+    dy = 0;
+  } else {
+    dw = w;
+    dh = w / ir;
+    dx = 0;
+    dy = (h - dh) / 2;
   }
 
-  ctx.beginPath();
-  for(let i=0;i<nodes.length;i++){
-    let n = nodes[i];
-    if(i===0) ctx.moveTo(n.x,n.y);
-    else ctx.lineTo(n.x,n.y);
-  }
-  ctx.strokeStyle = "#4285f4";
-  ctx.lineWidth = 2;
-  ctx.stroke();
-
-  requestAnimationFrame(animate);
+  context.drawImage(image, dx, dy, dw, dh);
 }
 
-animate();
+campus.onload = () => {
+  let pixel = 42;
+
+  function animateIntro() {
+    introCtx.imageSmoothingEnabled = false;
+    offCtx.imageSmoothingEnabled = false;
+
+    const sw = Math.max(1, Math.floor(introCanvas.width / pixel));
+    const sh = Math.max(1, Math.floor(introCanvas.height / pixel));
+
+    offCanvas.width = sw;
+    offCanvas.height = sh;
+
+    offCtx.clearRect(0, 0, sw, sh);
+    drawCover(offCtx, campus, sw, sh);
+
+    introCtx.clearRect(0, 0, introCanvas.width, introCanvas.height);
+    introCtx.drawImage(offCanvas, 0, 0, sw, sh, 0, 0, introCanvas.width, introCanvas.height);
+
+    pixel *= 0.92;
+
+    if (pixel > 1.05) {
+      requestAnimationFrame(animateIntro);
+    } else {
+      intro.style.transition = "opacity 1s ease";
+      intro.style.opacity = "0";
+      setTimeout(() => intro.style.display = "none", 1000);
+    }
+  }
+
+  animateIntro();
+};
+
+campus.onerror = () => {
+  intro.style.display = "none";
+};
+
+/* Spring-mass grid background */
+const bg = document.getElementById("spring-bg");
+const ctx = bg.getContext("2d");
+
+let nodes = [];
+let cols = 0;
+let rows = 0;
+let spacing = 70;
+let lastScrollY = window.scrollY;
+let scrollVelocity = 0;
+
+function setupGrid() {
+  bg.width = window.innerWidth;
+  bg.height = window.innerHeight;
+
+  cols = Math.ceil(bg.width / spacing) + 2;
+  rows = Math.ceil(bg.height / spacing) + 2;
+  nodes = [];
+
+  for (let y = -1; y < rows; y++) {
+    for (let x = -1; x < cols; x++) {
+      nodes.push({
+        x: x * spacing,
+        y: y * spacing,
+        baseX: x * spacing,
+        baseY: y * spacing,
+        vx: 0,
+        vy: 0
+      });
+    }
+  }
+}
+
+function nodeAt(x, y) {
+  return nodes[y * cols + x];
+}
+
+window.addEventListener("resize", setupGrid);
+window.addEventListener("scroll", () => {
+  const current = window.scrollY;
+  scrollVelocity = current - lastScrollY;
+  lastScrollY = current;
+});
+
+function animateGrid() {
+  ctx.clearRect(0, 0, bg.width, bg.height);
+
+  const force = Math.max(-18, Math.min(18, scrollVelocity * 0.25));
+
+  nodes.forEach((node, i) => {
+    const wave = Math.sin((node.baseX + node.baseY + performance.now() * 0.05) * 0.015);
+    const targetX = node.baseX + wave * force * 0.4;
+    const targetY = node.baseY + force;
+
+    node.vx += (targetX - node.x) * 0.05;
+    node.vy += (targetY - node.y) * 0.05;
+    node.vx *= 0.88;
+    node.vy *= 0.88;
+    node.x += node.vx;
+    node.y += node.vy;
+  });
+
+  scrollVelocity *= 0.9;
+
+  ctx.strokeStyle = "rgba(66,133,244,0.18)";
+  ctx.lineWidth = 1;
+
+  for (let y = 0; y < rows - 1; y++) {
+    for (let x = 0; x < cols - 1; x++) {
+      const n = nodeAt(x, y);
+      const right = nodeAt(x + 1, y);
+      const down = nodeAt(x, y + 1);
+
+      ctx.beginPath();
+      ctx.moveTo(n.x, n.y);
+      ctx.lineTo(right.x, right.y);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(n.x, n.y);
+      ctx.lineTo(down.x, down.y);
+      ctx.stroke();
+    }
+  }
+
+  ctx.fillStyle = "rgba(66,133,244,0.35)";
+  nodes.forEach(n => {
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, 2.2, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  requestAnimationFrame(animateGrid);
+}
+
+setupGrid();
+animateGrid();
 </script>
 
 </body>
