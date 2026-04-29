@@ -100,6 +100,21 @@ h2 {
   border-radius: 1rem;
 }
 
+/* POSTER (FIXED SIZE) */
+.poster-img {
+  max-width: 420px;
+  width: 100%;
+  display: block;
+  margin: 1rem auto;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.poster-img:hover {
+  transform: scale(1.02);
+}
+
 /* LOGO */
 #columbia-logo {
   position: fixed;
@@ -144,9 +159,13 @@ I work on computational electromagnetics, photonic time crystals, and thermal ra
 <h2 class="fade-in">Simulation</h2>
 <canvas id="fdtd-canvas" class="fade-in delay-1"></canvas>
 
-<h2 class="fade-in">Poster</h2>
+<h2 class="fade-in">Research Poster</h2>
+<p class="text-center text-muted fade-in delay-1" style="font-size:0.9rem;">
+Click to view full poster
+</p>
+
 <a href="UTA PTC Board (40).pdf" target="_blank">
-<img src="uta-poster-preview.png" class="fade-in delay-1">
+  <img src="uta-poster-preview.png" class="poster-img fade-in delay-1">
 </a>
 
 <h2 class="fade-in">Experience</h2>
