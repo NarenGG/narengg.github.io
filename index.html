@@ -1,243 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Naren Ganesh</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naren Ganesh</title>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f0f2f5;
-      color: #1c1e21;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f0f2f5;
+  color: #1c1e21;
+  margin: 0;
+}
 
-    .main-card {
-      background: #fff;
-      border-radius: 1.25rem;
-      padding: 2.5rem;
-      margin: 2rem auto;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
-      max-width: 860px;
-    }
+/* Main card */
+.main-card {
+  background: #fff;
+  border-radius: 1.25rem;
+  padding: 2.5rem;
+  margin: 2rem auto;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+  max-width: 860px;
+  opacity: 0;
+  animation: fadeIn 1.5s ease forwards;
+  animation-delay: 1.5s;
+}
 
-    h1 {
-      font-size: 2.75rem;
-      font-weight: 600;
-    }
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
 
-    h2 {
-      font-size: 1.5rem;
-      margin-top: 2rem;
-      font-weight: 600;
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 0.25rem;
-    }
+h1 { font-size: 2.75rem; font-weight: 600; }
 
-    a {
-      color: #4285f4;
-      text-decoration: none;
-    }
+h2 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  font-weight: 600;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.25rem;
+}
 
-    a:hover {
-      text-decoration: underline;
-    }
+img {
+  border-radius: 0.5rem;
+  margin-top: 1.5rem;
+  max-width: 100%;
+}
 
-    img {
-      border-radius: 0.5rem;
-      margin-top: 1.5rem;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-      max-width: 100%;
-      height: auto;
-    }
+/* INTRO ANIMATION */
+#intro-overlay {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:black;
+  z-index:9999;
+}
 
-    ul {
-      padding-left: 1.25rem;
-    }
+#pixel-canvas {
+  width:100%;
+  height:100%;
+}
 
-    .github-graph {
-      padding-top: 1rem;
-      text-align: center;
-    }
+.fade-out {
+  opacity:0;
+  transition:1s;
+  pointer-events:none;
+}
 
-    .github-graph img {
-      border-radius: 0.75rem;
-      margin: 1rem 0 0;
-      box-shadow: none;
-      max-width: 100%;
-    }
+/* TIMELINE */
+.timeline {
+  border-left:2px solid #ddd;
+  padding-left:1.5rem;
+}
 
-    /* Timeline styling */
-    .timeline {
-      border-left: 2px solid #ddd;
-      margin-left: 0.5rem;
-      padding-left: 1.5rem;
-    }
+.timeline-item {
+  margin-bottom:1.5rem;
+  position:relative;
+}
 
-    .timeline-item {
-      margin-bottom: 1.5rem;
-      position: relative;
-    }
+.timeline-item::before {
+  content:"";
+  position:absolute;
+  left:-1.65rem;
+  top:5px;
+  width:10px;
+  height:10px;
+  background:#4285f4;
+  border-radius:50%;
+}
 
-    .timeline-item::before {
-      content: "";
-      position: absolute;
-      left: -1.65rem;
-      top: 5px;
-      width: 10px;
-      height: 10px;
-      background-color: #4285f4;
-      border-radius: 50%;
-    }
-
-    .timeline-item h5 {
-      margin-bottom: 0.25rem;
-      font-weight: 600;
-    }
-
-    .timeline-item span {
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    .github-badge {
-      margin-top: 2rem;
-    }
-
-    @media (max-width: 600px) {
-      .main-card {
-        padding: 1.5rem;
-      }
-    }
-  </style>
+/* FDTD CANVAS */
+#fdtd-canvas {
+  width:100%;
+  height:300px;
+  background:black;
+  border-radius:1rem;
+  margin-top:1rem;
+}
+</style>
 </head>
 
 <body>
-  <div class="main-card">
 
-    <h1>Naren Ganesh</h1>
-    <p class="lead mb-4">Electrical Engineering @ Columbia • Researcher • Debater</p>
+<!-- INTRO -->
+<div id="intro-overlay">
+  <canvas id="pixel-canvas"></canvas>
+</div>
 
-    <h2>GitHub Contributions</h2>
-    <div class="github-graph">
-      <img src="https://ghchart.rshah.org/4285f4/NarenGG" />
-    </div>
+<div class="main-card">
 
-    <h2>About</h2>
-    <p>
-      I’m a student at Columbia University studying electrical engineering, with interests in computational electromagnetics, silicon photonics, and law & society. My work focuses on non-equilibrium thermal radiation and photonic time crystals, with applications in hearing preservation technologies. I also compete in national-level Lincoln-Douglas debate.
-    </p>
+<h1>Naren Ganesh</h1>
+<p class="lead">Electrical Engineering @ Columbia • Researcher • Debater</p>
 
-    <h2>Education</h2>
-    <ul>
-      <li>
-        <strong>Columbia University</strong> — B.S. Electrical Engineering<br>
-        <em>Minor: Operations Research, Hispanic Studies | Class of 2030</em><br>
-        Honors: C. Prescott Davis Scholar
-      </li>
-      <br>
-      <li>
-        <strong>Texas Academy of Mathematics and Science</strong><br>
-        Electrical Engineering (4.0/4.0 UW) | Class of 2026<br>
-        Coursework: PDEs, Complex Analysis, ODEs
-      </li>
-    </ul>
+<h2>About</h2>
+<p>
+I work on computational electromagnetics, photonic time crystals, and thermal radiation.
+My research focuses on non-equilibrium heat transfer and coherence amplification in optical systems.
+</p>
 
-    <h2>Projects & Research</h2>
-    <ul>
-      <li>FDTD simulations for non-equilibrium thermal currents</li>
-      <li>COMSOL modeling of emissivity via Green’s functions</li>
-      <li>Photonic time-crystal modeling for thermal radiation amplification</li>
-    </ul>
-    <img src="fdtd-diagram.png" />
+<h2>Projects & Research</h2>
+<ul>
+  <li>FDTD simulations for thermal radiation</li>
+  <li>COMSOL electromagnetic modeling</li>
+  <li>Photonic time-crystal research</li>
+</ul>
 
-    <h2>Experience</h2>
-    <div class="timeline">
+<!-- 🔥 FDTD ANIMATION -->
+<h2>Simulation Visualization</h2>
+<canvas id="fdtd-canvas"></canvas>
 
-      <div class="timeline-item">
-        <h5>Undergraduate Research Fellow — UNT Physics (Xiao Group)</h5>
-        <span>Aug 2024 – Present</span>
-        <p>
-          Modeling thermal radiation in photonic time crystals. Built FDTD frameworks in MATLAB and executed large-scale COMSOL simulations.
-        </p>
-      </div>
+<!-- POSTER -->
+<h2>Featured Research Poster</h2>
+<p>
+Energy and coherence amplification in photonic time crystals.
+</p>
 
-      <div class="timeline-item">
-        <h5>President — TAMS Research Organization</h5>
-        <span>Apr 2025 – Present</span>
-        <p>
-          Led campus research initiatives, organized mentorship programs, and coordinated funding and logistics for competitions.
-        </p>
-      </div>
+<a href="UTA PTC Board (40).pdf" target="_blank">
+  <img src="uta-poster-preview.png">
+</a>
 
-      <div class="timeline-item">
-        <h5>Policy Debater — University of North Texas</h5>
-        <span>Aug 2024 – Present</span>
-        <p>
-          Competed in collegiate LD and CX debate; ranked top 100 nationally in Lincoln-Douglas.
-        </p>
-      </div>
+<h2>Experience</h2>
+<div class="timeline">
 
-      <div class="timeline-item">
-        <h5>Summer Researcher — UNT Mechanical Engineering (Zhang Group)</h5>
-        <span>May 2024 – Aug 2024</span>
-        <p>
-          Developed optical algorithms for metamaterial prediction and modeled refractive indices using Lorentz-Drude models.
-        </p>
-      </div>
+<div class="timeline-item">
+<strong>Research Fellow — UNT Physics</strong><br>
+Aug 2024 – Present
+</div>
 
-    </div>
+<div class="timeline-item">
+<strong>President — TAMS Research Org</strong><br>
+Apr 2025 – Present
+</div>
 
-    <h2>Publications & Conferences</h2>
-    <ul>
-      <li>
-        <strong>Conference on Lasers and Electro-Optics (CLEO), 2026</strong><br>
-        “Energy Amplification and Coherence Enhancement of Blackbody Radiation in 1D Photonic Time-Crystals”
-      </li>
-      <br>
-      <li>
-        <strong>Universidad del Cauca (Invited Talk), 2025</strong><br>
-        “El desarrollo de simulaciones electromagnéticas para avanzar en fototerapias cocleares”
-      </li>
-    </ul>
+</div>
 
-    <h2>Debate</h2>
-    <p>
-      Lincoln-Douglas debater focused on international relations, structural injustice, and continental philosophy. Quarterfinalist and 3rd speaker at WKU and qualified to NFA-LD Nationals.
-    </p>
-    <img src="debate.png" />
+</div>
 
-    <h2>Awards & Honors</h2>
-    <ul>
-      <li>
-        <strong>Scholarships:</strong> SPIE Optics & Photonics, Weiner Scholarship, Summer Research Funding, URF Awards
-      </li>
-      <br>
-      <li>
-        <strong>Research:</strong> 2nd Place UTA Photonics Workshop, TJAS Honorable Mention, FWRSEF 3rd Place
-      </li>
-      <br>
-      <li>
-        <strong>Debate:</strong> 2nd Place Northwestern, WKU Quarterfinalist + 3rd Speaker, NFA-LD Nationals Qualification
-      </li>
-    </ul>
+<script>
+/* PIXEL INTRO */
+const canvas = document.getElementById("pixel-canvas");
+const ctx = canvas.getContext("2d");
 
-    <h2>Connect</h2>
-    <ul>
-      <li><a href="https://github.com/NarenGG" target="_blank">GitHub</a></li>
-      <li><a href="mailto:nareng2026@gmail.com">Email</a></li>
-    </ul>
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-    <div class="github-badge text-center">
-      <iframe src="https://ghbtns.com/github-btn.html?user=NarenGG&type=follow&count=true"
-              frameborder="0" scrolling="0" width="170" height="20"></iframe>
-    </div>
+const img = new Image();
+img.src = "columbia.jpg";
 
-  </div>
+img.onload = () => {
+  let size = 60;
+
+  function animate() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    for(let y=0;y<canvas.height;y+=size){
+      for(let x=0;x<canvas.width;x+=size){
+        ctx.drawImage(img,x,y,size,size,x,y,size,size);
+      }
+    }
+
+    size -= 2;
+
+    if(size > 1){
+      requestAnimationFrame(animate);
+    } else {
+      document.getElementById("intro-overlay").classList.add("fade-out");
+    }
+  }
+
+  animate();
+};
+
+/* FDTD STYLE WAVE */
+const fdtd = document.getElementById("fdtd-canvas");
+const fctx = fdtd.getContext("2d");
+
+fdtd.width = fdtd.offsetWidth;
+fdtd.height = 300;
+
+let t = 0;
+
+function drawWave(){
+  fctx.clearRect(0,0,fdtd.width,fdtd.height);
+
+  fctx.beginPath();
+
+  for(let x=0;x<fdtd.width;x++){
+    let y = fdtd.height/2 + 
+            Math.sin((x*0.02) - t)*30 * 
+            Math.exp(-Math.pow((x - fdtd.width/2)/200,2));
+
+    fctx.lineTo(x,y);
+  }
+
+  fctx.strokeStyle = "#00d4ff";
+  fctx.lineWidth = 2;
+  fctx.stroke();
+
+  t += 0.05;
+
+  requestAnimationFrame(drawWave);
+}
+
+drawWave();
+</script>
+
 </body>
 </html>
